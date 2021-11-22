@@ -7,7 +7,8 @@ import * as actions from "../../store/actions";
 import './Login.scss';
 import { FormattedMessage } from 'react-intl';
 import { divide } from 'lodash';
-
+import {handleLoginApi} from '../../services/userService'
+import { userLoginSuccess } from '../../store/actions';
 
 
 class Login extends Component {
@@ -16,7 +17,8 @@ class Login extends Component {
         this.state={//luu trang thai state
             username:"",
             password:"",
-            isShowPassword:false
+            isShowPassword:false,
+            errMessage:""
         }
     }
     handelOnChangeUsername=(event)=>{
@@ -31,8 +33,31 @@ class Login extends Component {
         })
         console.log(event.target.value);
     }
-    handleLogin=()=>{
-        console.log(`username: ${this.state.username}, password: ${this.state.password}`)
+    handleLogin=async()=>{
+        this.setState({//clear cai loi cu di khong thi no ko mat loi
+            errMessage:""
+        })
+        try{//quen try catch thi sever ngom
+            let data=await handleLoginApi(this.state.username,this.state.password);
+            if(data&&data.errCode!==0){
+                this.setState({
+                    errMessage:data.message
+                })
+            }
+            if(data&&data.errCode===0){
+                this.props.userLoginSuccess(data.user);
+                console.log("login succeeds")
+            }
+        }catch(err){
+            if(err.response){//cach lay errMessage trong axios
+                if(err.response.data){
+                    this.setState({
+                        errMessage:err.response.data.message
+                    })
+                }
+            }
+            console.log('hoidanit',err.response);
+        }
     }
     handleShowHidePassword=()=>{
         this.setState({
@@ -46,9 +71,9 @@ class Login extends Component {
                 <div className="login-background">
                     <div className="login-container">
                         <div className="login-content row">
-                            <div className="col-12 text-login">Login</div>
-                            <div className="col-12 form-group login-input">
-                                <label>UserName:</label>
+                            <div className="col-12 text-login">Login</div>{/*co 12 colum */}
+                            <div className="col-12 form-group login-input">{/*bo tri theo thu tu thang dung nguoc vs form-inline*/}
+                                <label>UserName:</label>{/*noi de nhap dung form-control*/}
                                 <input type="text" 
                                 className="form-control" 
                                 placeholder="Enter your username"
@@ -68,13 +93,16 @@ class Login extends Component {
                                 </span>
                                 </div>
                             </div>
+                            <div className="col-12" style={{color:'red'}}>
+                                {this.state.errMessage}
+                            </div>
                             <div className="col-12">
                                 <button class="btn-login" onClick={(event)=>{this.handleLogin()}}>Login</button>
                             </div>
                             <div className="col-12">
                                 <span className="forgot-password">Forgot your password</span>
                             </div>
-                            <div className="col-12 text-center  mt-3"> {/*mt-3 la margin top =3 */}
+                            <div className="col-12 text-center  mt-3"> {/*text-center la can giua, mt-3 la margin top =3 */}
                                 <span className="text-orther-login">Or login with:</span>
                             </div>
                             <div className="col-12 social-login">
@@ -99,8 +127,8 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
     return {
         navigate: (path) => dispatch(push(path)),
-        adminLoginSuccess: (adminInfo) => dispatch(actions.adminLoginSuccess(adminInfo)),
-        adminLoginFail: () => dispatch(actions.adminLoginFail()),
+        //userLoginFail: () => dispatch(actions.adminLoginFail()),
+        userLoginSuccess:(userInfor)=>dispatch(actions.userLoginSuccess(userInfor))
     };
 };
 
