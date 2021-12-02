@@ -1,49 +1,84 @@
 #customers {
-  font-family: Arial, Helvetica, sans-serif;
-  border-collapse: collapse;
-  width: 100%;
+    font-family: Arial, Helvetica, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
 }
 
 #customers td,
 #customers th {
-  border: 1px solid #ddd;
-  padding: 8px;
+    border: 1px solid #ddd;
+    padding: 8px;
 }
 
 #customers tr:nth-child(even) {
-  background-color: #f2f2f2;
+    background-color: #f2f2f2;
 }
 
 #customers tr:hover {
-  background-color: #ddd;
+    background-color: #ddd;
 }
 
 #customers th {
-  padding-top: 12px;
-  padding-bottom: 12px;
-  text-align: left;
-  background-color: #04aa6d;
-  color: white;
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: left;
+    background-color: #04aa6d;
+    color: white;
 }
 .btn-edit {
-  width: 50px;
-  border: none;
-  outline: none;
-  background: transparent;
-  color: orange;
-  &:hover {
-    background-color: transparent !important ; //lenh important co nghia la no ghi de tat ca
-    color: orange !important;
-  }
+    width: 50px;
+    border: none;
+    outline: none;
+    background: transparent;
+    color: orange;
+    &:hover {
+        background-color: transparent !important ; //lenh important co nghia la no ghi de tat ca
+        color: orange !important;
+    }
 }
 .btn-delete {
-  width: 50px;
-  border: none;
-  outline: none;
-  background: transparent;
-  color: red;
-  &:hover {
-    background-color: transparent !important ;
-    color: red !important;
-  }
+    width: 50px;
+    border: none;
+    outline: none;
+    background: transparent;
+    color: red;
+    &:hover {
+        background-color: transparent !important ;
+        color: red !important;
+    }
+}
+.modal-user-container {
+    // chiu kho sua tren browser roi post vao day
+    .modal-content {
+        .modal-header {
+            button {
+                background-color: transparent !important;
+                font-size: 27px;
+                border: none;
+                color: white;
+            }
+        }
+    }
+    .modal-user-body {
+        display: flex; //mac dinh nam tren 1 hang
+        gap: 15px;
+        flex-wrap: wrap;
+        .input-container {
+            display: flex;
+            flex-direction: column;
+            width: 40%;
+
+            &.max-width-input {
+                //dau & the hien su ngang hang
+                width: 100%;
+            }
+            input {
+                border-radius: 3px;
+                height: 30px;
+                border: 1px solid grey; //border default day hon 1 px =>cho nho lai
+                outline: none; //default boostrap thi moi khi tro chuot vao input thi vien no to dam=> khong thich thi bo
+                padding: 0 10px;
+            }
+        }
+    }
 }
