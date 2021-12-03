@@ -6,16 +6,19 @@ import {
     getAllUsers,
     createNewUserService,
     deleteUserService,
+    editUserService,
 } from "../../services/userService";
 import ModalUser from "./ModalUser";
+import ModalEditUser from "./ModalEditUser";
 import { emitter } from "../../utils/emitter";
-
+import _ from "lodash"; // library help us write javascript concisely
 class UserManage extends Component {
     constructor(props) {
         super(props);
         this.state = {
             arrUsers: [],
             isOpenModalUser: false,
+            isOpenModalEditUser: false,
         };
     }
 
@@ -31,6 +34,11 @@ class UserManage extends Component {
     toggleUserModal = () => {
         this.setState({
             isOpenModalUser: !this.state.isOpenModalUser,
+        });
+    };
+    toggleUserEditModal = () => {
+        this.setState({
+            isOpenModalEditUser: !this.state.isOpenModalEditUser,
         });
     };
     getAllUsersFromReact = async () => {
@@ -74,6 +82,27 @@ class UserManage extends Component {
             console.log(err);
         }
     };
+    handleEditUser = async (user) => {
+        this.setState({
+            isOpenModalEditUser: true,
+            userEdit: user,
+        });
+    };
+    doEditUser = async (user) => {
+        try {
+            let res = await editUserService(user);
+            if (res && res.errCode === 0) {
+                this.setState({
+                    isOpenModalEditUser: false,
+                });
+                this.getAllUsersFromReact();
+            } else {
+                alert(res.errMessage);
+            }
+        } catch (err) {
+            console.log(err);
+        }
+    };
     /**
      * Life cycle
      * run component:
@@ -88,12 +117,30 @@ class UserManage extends Component {
         return (
             <div className="user-container">
                 {/*cai modaluser viet tat nay de tao modal */}
-                <ModalUser
+                <ModalUser /*chua tat ca cac attribute in props */
                     isOpen={this.state.isOpenModalUser}
                     toggleFromParent={this.toggleUserModal}
                     createNewUser={this.createNewUser}
                 />
                 {/*ca chuyen function qua component con*/}
+
+                {
+                    /*do hàm ModalEditUser đã được khởi tạo từ lúc đầu nên nó đã chuyền tất cả các tham số,
+                 trường hợp này vô cùng phổ biến và nếu chúng ta muốn cập nhật state thì chỉ có 2 cách giải quyết
+                C1:componentDidUpdate
+                C2:nhét nó vào hàm điều kiện như trong bài này,
+                ở đây this.state.isOpenModalEditUser chuyển true false liên tục=>modal khởi động lại liên tụ
+                */
+                    this.state.isOpenModalEditUser && (
+                        <ModalEditUser
+                            isOpen={this.state.isOpenModalEditUser}
+                            toggleFromParent={this.toggleUserEditModal}
+                            currentUser={this.state.userEdit}
+                            editUser={this.doEditUser}
+                        />
+                    )
+                }
+
                 <div className="title text-center">Manage user with qtt</div>
                 <div className="mx-1">
                     <button
@@ -128,7 +175,14 @@ class UserManage extends Component {
                                             <td>{item.lastName}</td>
                                             <td>{item.address}</td>
                                             <td>
-                                                <button className="btn-edit">
+                                                <button
+                                                    className="btn-edit"
+                                                    onClick={() =>
+                                                        this.handleEditUser(
+                                                            item
+                                                        )
+                                                    }
+                                                >
                                                     {/*nho phai la className ko phai class */}
                                                     <i className="fas fa-pencil-alt"></i>
                                                 </button>
