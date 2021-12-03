@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { FormattedMessage } from "react-intl";
 import { connect } from "react-redux";
 import "./UserManage.scss";
-import { getAllUsers } from "../../services/userService";
+import { getAllUsers, createNewUserService } from "../../services/userService";
 import ModalUser from "./ModalUser";
 class UserManage extends Component {
     constructor(props) {
@@ -14,12 +14,7 @@ class UserManage extends Component {
     }
 
     async componentDidMount() {
-        let response = await getAllUsers("All");
-        if (response && response.errCode === 0) {
-            this.setState({
-                arrUsers: response.users,
-            });
-        }
+        await this.getAllUsersFromReact();
     }
     handleAddNewUser = () => {
         this.setState({
@@ -31,6 +26,29 @@ class UserManage extends Component {
         this.setState({
             isOpenModalUser: !this.state.isOpenModalUser,
         });
+    };
+    getAllUsersFromReact = async () => {
+        let response = await getAllUsers("All");
+        if (response && response.errCode === 0) {
+            this.setState({
+                arrUsers: response.users,
+            });
+        }
+    };
+    createNewUser = async (data) => {
+        try {
+            let response = await createNewUserService(data);
+            if (response && response.errCode !== 0) {
+                alert(response.errMessage);
+            } else {
+                await this.getAllUsersFromReact();
+                this.setState({
+                    isOpenModalUser: false,
+                });
+            }
+        } catch (e) {
+            console.log(e);
+        }
     };
     /**
      * Life cycle
@@ -49,7 +67,7 @@ class UserManage extends Component {
                 <ModalUser
                     isOpen={this.state.isOpenModalUser}
                     toggleFromParent={this.toggleUserModal}
-                    size="lg"
+                    createNewUser={this.createNewUser}
                 />
                 {/*ca chuyen function qua component con*/}
                 <div className="title text-center">Manage user with qtt</div>
@@ -64,35 +82,39 @@ class UserManage extends Component {
                 </div>
                 <div className="user-table mt-3 mx-1">
                     <table id="customers">
-                        <tr>
-                            <th>Email</th>
-                            <th>First name</th>
-                            <th>Last name</th>
-                            <th>Address</th>
-                            <th>Actions</th>
-                        </tr>
-                        {arrUsers /*phai {} cho ham trong reder*/ &&
-                            arrUsers.map((item, index) => {
-                                console.log("eric check map", item, index);
-                                return (
-                                    /*trong function map phai return ra cai gi day*/
-                                    <tr key={index}>
-                                        {/*cho tr de tao cot, key={index} lien quan toi warning, chua biet*/}
-                                        <td>{item.email}</td>
-                                        <td>{item.firstName}</td>
-                                        <td>{item.lastName}</td>
-                                        <td>{item.address}</td>
-                                        <td>
-                                            <button className="btn-edit">
-                                                <i class="fas fa-pencil-alt"></i>
-                                            </button>
-                                            <button className="btn-delete">
-                                                <i class="fas fa-trash"></i>
-                                            </button>
-                                        </td>
-                                    </tr>
-                                );
-                            })}
+                        <tbody>
+                            {/*neu ma quen tbody trong table thi se co warning*/}
+                            <tr>
+                                <th>Email</th>
+                                <th>First name</th>
+                                <th>Last name</th>
+                                <th>Address</th>
+                                <th>Actions</th>
+                            </tr>
+                            {arrUsers /*phai {} cho ham trong reder*/ &&
+                                arrUsers.map((item, index) => {
+                                    console.log("eric check map", item, index);
+                                    return (
+                                        /*trong function map phai return ra cai gi day*/
+                                        <tr key={index}>
+                                            {/*cho tr de tao cot, key={index} lien quan toi warning, chua biet*/}
+                                            <td>{item.email}</td>
+                                            <td>{item.firstName}</td>
+                                            <td>{item.lastName}</td>
+                                            <td>{item.address}</td>
+                                            <td>
+                                                <button className="btn-edit">
+                                                    {/*nho phai la className ko phai class */}
+                                                    <i className="fas fa-pencil-alt"></i>
+                                                </button>
+                                                <button className="btn-delete">
+                                                    <i className="fas fa-trash"></i>
+                                                </button>
+                                            </td>
+                                        </tr>
+                                    );
+                                })}
+                        </tbody>
                     </table>
                 </div>
             </div>
