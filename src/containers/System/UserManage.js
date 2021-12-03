@@ -2,8 +2,14 @@ import React, { Component } from "react";
 import { FormattedMessage } from "react-intl";
 import { connect } from "react-redux";
 import "./UserManage.scss";
-import { getAllUsers, createNewUserService } from "../../services/userService";
+import {
+    getAllUsers,
+    createNewUserService,
+    deleteUserService,
+} from "../../services/userService";
 import ModalUser from "./ModalUser";
+import { emitter } from "../../utils/emitter";
+
 class UserManage extends Component {
     constructor(props) {
         super(props);
@@ -45,9 +51,27 @@ class UserManage extends Component {
                 this.setState({
                     isOpenModalUser: false,
                 });
+                /**
+                 * fire event: child->parent(props)
+                 * parent->child(ref)
+                 * emitter(event) dung cho ca hai deu dc vs emit+on
+                 */
+                emitter.emit("EVENT_CLEAR_MODAL_DATA");
             }
         } catch (e) {
             console.log(e);
+        }
+    };
+    handleDeleteUser = async (user) => {
+        try {
+            let response = await deleteUserService(user.id);
+            if (response && response.errCode === 0) {
+                await this.getAllUsersFromReact();
+            } else {
+                alert(response.errMessage);
+            }
+        } catch (err) {
+            console.log(err);
         }
     };
     /**
@@ -91,8 +115,9 @@ class UserManage extends Component {
                                 <th>Address</th>
                                 <th>Actions</th>
                             </tr>
-                            {arrUsers /*phai {} cho ham trong reder*/ &&
+                            {arrUsers &&
                                 arrUsers.map((item, index) => {
+                                    /*phai {} cho ham trong reder*/
                                     console.log("eric check map", item, index);
                                     return (
                                         /*trong function map phai return ra cai gi day*/
@@ -107,7 +132,14 @@ class UserManage extends Component {
                                                     {/*nho phai la className ko phai class */}
                                                     <i className="fas fa-pencil-alt"></i>
                                                 </button>
-                                                <button className="btn-delete">
+                                                <button
+                                                    className="btn-delete"
+                                                    onClick={() =>
+                                                        this.handleDeleteUser(
+                                                            item
+                                                        )
+                                                    }
+                                                >
                                                     <i className="fas fa-trash"></i>
                                                 </button>
                                             </td>

@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { FormattedMessage } from "react-intl";
 import { connect } from "react-redux";
 import { Button, Modal, ModalBody, ModalFooter, ModalHeader } from "reactstrap";
+import { emitter } from "../../utils/emitter";
 class ModalUser extends Component {
     //cai modal nay copy tren mang
     constructor(props) {
@@ -14,10 +15,21 @@ class ModalUser extends Component {
             password: "",
             address: "",
         };
+        this.listenToEmitter(); //nho la phai khai listen emitter trong constructor
     }
-
     componentDidMount() {}
 
+    listenToEmitter = () => {
+        emitter.on("EVENT_CLEAR_MODAL_DATA", () => {
+            this.setState({
+                email: "",
+                firstName: "",
+                lastName: "",
+                password: "",
+                address: "",
+            });
+        });
+    };
     toggle = () => {
         this.props.toggleFromParent(); // goi function from modal parent
     };
