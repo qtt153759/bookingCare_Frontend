@@ -13,8 +13,10 @@ import reduxStore, { persistor } from "./redux";
 const renderApp = () => {
     ReactDOM.render(
         <Provider store={reduxStore}>
+            {/*reduxStore nơi lưu thông tin của redux  */}
             <IntlProviderWrapper>
                 <App persistor={persistor} />
+                {/*persistor giúp lưu trữ 1 biến của redux ko khác gì local store*/}
                 {/* index là file đầu tiên chạy sau đó nó chạy vào App */}
             </IntlProviderWrapper>
         </Provider>,

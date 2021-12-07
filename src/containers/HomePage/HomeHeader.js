@@ -1,11 +1,20 @@
 import React, { Component } from "react";
 import { Redirect } from "react-router-dom";
-import { connect } from "react-redux";
+import { connect } from "react-redux"; //muốn lấy state của redux thì phải dùng connect
 import "./HomeHeader.scss";
 import logo from "../../assets/logo.svg";
 import { FormattedMessage } from "react-intl"; //thư viện dùng để chuyển đổi ngôn ngữ
+import { LANGUAGES } from "../../utils";
+import { changeLanguageApp } from "../../store/actions"; //gọi đến folder là biết ngay các hàm trong module con của nó vì file index.js xuất ra hết r
+//changeLanguageApp để action trong mapDispatchToProps
 class HomeHeader extends Component {
+    changeLanguage = (language) => {
+        //chạy bằng redux thì mỗi lần thay đổi ngôn ngữ không cần reload lại trang
+        this.props.changeLanguageAppRedux(language); //dùng hàm này thông qua redux ở mapDispatchToProps
+    };
     render() {
+        let language = this.props.language;
+        console.log("check props", this.props); //lấy state từ redux
         return (
             //buộc phải xuất ra 1 block
             <React.Fragment>
@@ -65,8 +74,37 @@ class HomeHeader extends Component {
                                 <i className="fas fa-question-circle"></i>
                                 <FormattedMessage id="homeheader.suppor" />
                             </div>
-                            <div className="language-vi">VN</div>
-                            <div className="language-en">EN</div>
+                            <div
+                                className={
+                                    language === LANGUAGES.VI
+                                        ? "language-vi active"
+                                        : "language-vi"
+                                }
+                            >
+                                <span
+                                    onClick={() =>
+                                        this.changeLanguage(LANGUAGES.VI)
+                                    }
+                                >
+                                    VN
+                                </span>
+                            </div>
+                            {/*nên đặt sự kiện onClick vào thẻ span, không vào div vì nhiều khi div toàn màn hình */}
+                            <div
+                                className={
+                                    language === LANGUAGES.EN
+                                        ? "language-en active"
+                                        : "language-en"
+                                }
+                            >
+                                <span
+                                    onClick={() =>
+                                        this.changeLanguage(LANGUAGES.EN)
+                                    }
+                                >
+                                    EN
+                                </span>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -148,16 +186,22 @@ class HomeHeader extends Component {
 }
 
 const mapStateToProps = (state) => {
-    //map ra các state của redux
+    //map state từ redux và inject vào component, thường trong mục store/action
     //redux nó nhớ
     return {
+        //các key
         isLoggedIn: state.user.isLoggedIn,
-        langague: state.app.langague,
+        language: state.app.language,
     };
 };
 
 const mapDispatchToProps = (dispatch) => {
-    return {};
+    //mapDispatchToProps nghĩa là có thể truy cập vào function thông qua this.props
+    //fire các event của redux
+    return {
+        changeLanguageAppRedux: (language) =>
+            dispatch(changeLanguageApp(language)), //fire 1 action bằng dispatch
+    };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(HomeHeader);
+export default connect(mapStateToProps, mapDispatchToProps)(HomeHeader); //muốn lấy state của redux thì phải dùng connect
