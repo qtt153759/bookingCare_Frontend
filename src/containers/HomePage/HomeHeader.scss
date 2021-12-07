@@ -55,16 +55,26 @@
             }
             .language-vi {
                 cursor: pointer;
+                opacity: 0.2;
                 &.active {
+                    opacity: 0.8;
                     //nhấn vào thì language-vi + &.active tương đương với tên file html language-vi active
                     color: orange;
+                }
+                &:hover {
+                    opacity: 1; //di chuột vào là đậm hơn
                 }
             }
             .language-en {
                 margin: 0 10px;
                 cursor: pointer;
+                opacity: 0.2;
                 &.active {
+                    opacity: 1;
                     color: blue;
+                }
+                &:hover {
+                    opacity: 0.8;
                 }
             }
         }
@@ -129,6 +139,7 @@
         align-items: flex-end;
         justify-content: center;
         //copy tren booking care
+        padding-bottom: 10px;
         background-image: linear-gradient(
             rgba(255, 255, 255, 0.1),
             rgba(255, 255, 255, 0.9),

@@ -1,0 +1,19 @@
+.section-speciality {
+    height: 330px;
+    background: #f5f5f5;
+    border: red solid 1px;
+}
+
+//reset slick slider css
+
+.slick-prev {
+    //2 cái nài trong thư viện, chịu khó vào google inspect
+    border: 1px solid green !important;
+    position: relative !important;
+    left: 0 !important; //cách viền trái
+}
+.slick-next {
+    //2 cái nài trong thư viện
+    border: 1px solid red !important;
+    right: 0 !important;
+}
