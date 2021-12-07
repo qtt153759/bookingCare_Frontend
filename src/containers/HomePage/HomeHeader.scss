@@ -1,7 +1,7 @@
 .home-header-container {
-    height: 60px;
+    height: 70px;
     width: 100%;
-    padding: 0 20px;
+    padding: 0 40px;
 
     .home-header-content {
         width: 100%;
@@ -9,17 +9,15 @@
         display: flex;
 
         .left-content {
-            width: 25%;
-            border: solid 1px green;
+            width: 20%;
             display: flex; //mặc dù div trên div dưới dùng display: flex để trên 1 dòng
             align-items: center; //căn giữa theo trục y
             .header-logo {
-                background: url("../../assets/logo.svg") center center no-repeat; //thay vi dung <img src=""/> thi dung background duoc tuy chinh nhieu hon
-                //center center no-repeat cach cho anh vao giua
-                //file anh svg ngon hon png
                 height: 100%;
                 width: 100%; //với logo phải thêm height vs width koo thi nó sẽ ko hiện
+                transform: scale(0.5, 0.5); //cho ảnh nhỏ lại
                 cursor: pointer; //trỏ chuột vào ra hình bàn tay
+                margin-left: -45px; //chơi bẩn
             }
             i {
                 font-size: 25px;
@@ -28,8 +26,7 @@
             }
         }
         .center-content {
-            width: 50%;
-            border: solid 1px yellow;
+            width: 55%;
             display: flex;
             justify-content: space-between; //căn cho các phần tử bên trong cách đều nhau
             align-items: center;
@@ -42,10 +39,34 @@
         }
         .right-content {
             width: 25%;
-            border: solid 1px blue;
-            justify-content: center;
+            justify-content: flex-end; //căn phải
             display: flex;
             align-items: center;
+
+            .support {
+                padding-right: 50px;
+                display: flex;
+                align-items: center;
+                cursor: pointer;
+                i {
+                    font-size: 15px;
+                    margin-right: 5px;
+                }
+            }
+            .language-vi {
+                cursor: pointer;
+                &.active {
+                    //nhấn vào thì language-vi + &.active tương đương với tên file html language-vi active
+                    color: orange;
+                }
+            }
+            .language-en {
+                margin: 0 10px;
+                cursor: pointer;
+                &.active {
+                    color: blue;
+                }
+            }
         }
     }
 }
@@ -59,8 +80,12 @@
     display: flex;
     flex-direction: column; //cài đặt flex theo chiều dọc
     .content-up {
-        border: 1px solid chartreuse;
-        height: 50%;
+        background-image: linear-gradient(
+            rgba(126, 126, 126, 0.25),
+            rgba(255, 255, 255, 0.1)
+        );
+
+        height: 65%;
         padding-top: 15px;
         .title1 {
             text-align: center;
@@ -99,8 +124,16 @@
         }
     }
     .content-down {
-        border: solid 1px chocolate;
-        height: 50%;
+        height: 35%;
+        display: flex;
+        align-items: flex-end;
+        justify-content: center;
+        //copy tren booking care
+        background-image: linear-gradient(
+            rgba(255, 255, 255, 0.1),
+            rgba(255, 255, 255, 0.9),
+            rgba(255, 255, 255, 1)
+        );
         .options {
             text-align: center;
             display: flex;
@@ -108,7 +141,6 @@
             justify-content: center;
             .option-child {
                 width: 100px;
-                border: 1px solid red;
                 .icon-child {
                     background: white;
                     width: 40px;
@@ -123,7 +155,7 @@
                     }
                 }
                 .text-child {
-                    font-size: 17px;
+                    font-size: 18px;
                     font-weight: 500;
                     cursor: pointer;
                     &:hover {
