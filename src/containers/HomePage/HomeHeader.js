@@ -76,6 +76,7 @@ class HomeHeader extends Component {
                             </div>
                             <div
                                 className={
+                                    //dây là cách chuyển đổi trạng thái bằng redux, lấy language trong mapToState
                                     language === LANGUAGES.VI
                                         ? "language-vi active"
                                         : "language-vi"

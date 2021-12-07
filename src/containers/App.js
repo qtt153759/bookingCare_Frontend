@@ -21,6 +21,7 @@ import System from "../routes/System";
 import { CustomToastCloseButton } from "../components/CustomToast";
 import HomePage from "./HomePage/HomaPage.js";
 
+import CustomScrollbars from "../components/CustomScrollbars";
 class App extends Component {
     handlePersistorState = () => {
         const { persistor } = this.props;
@@ -49,27 +50,39 @@ class App extends Component {
                             this.props.isLoggedIn && <Header /> //every time check loggin we have header
                         }
 
-                        <span className="content-container">
-                            <Switch>
-                                <Route
-                                    path={path.HOME}
-                                    exact
-                                    component={Home}
-                                />
-                                <Route
-                                    path={path.LOGIN}
-                                    component={userIsNotAuthenticated(Login)}
-                                />
-                                <Route
-                                    path={path.SYSTEM}
-                                    component={userIsAuthenticated(System)}
-                                />
-                                <Route
-                                    path={path.HOMEPAGE}
-                                    component={HomePage}
-                                />
-                            </Switch>
-                        </span>
+                        <div className="content-container">
+                            {/*đặt tất cả trong customScrollbars và set chiều cao mặc định 100vh=100 viewhigh, nếu vượt quá thì scroll sẽ xuất hiện*/}
+                            <CustomScrollbars
+                                style={
+                                    {
+                                        height: "100vh",
+                                        width: "100%",
+                                    } /*nếu chỉ xét 100% thì ko nhận, 100vh nghĩa là toàn màn hình */
+                                }
+                            >
+                                <Switch>
+                                    <Route
+                                        path={path.HOME}
+                                        exact
+                                        component={Home}
+                                    />
+                                    <Route
+                                        path={path.LOGIN}
+                                        component={userIsNotAuthenticated(
+                                            Login
+                                        )}
+                                    />
+                                    <Route
+                                        path={path.SYSTEM}
+                                        component={userIsAuthenticated(System)}
+                                    />
+                                    <Route
+                                        path={path.HOMEPAGE}
+                                        component={HomePage}
+                                    />
+                                </Switch>
+                            </CustomScrollbars>
+                        </div>
 
                         <ToastContainer
                             className="toast-container"
