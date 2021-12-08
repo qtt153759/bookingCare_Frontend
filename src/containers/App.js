@@ -19,7 +19,7 @@ import Header from "./Header/Header";
 import System from "../routes/System";
 
 import { CustomToastCloseButton } from "../components/CustomToast";
-import HomePage from "./HomePage/HomaPage.js";
+import HomePage from "./HomePage/HomePage.js";
 
 import CustomScrollbars from "../components/CustomScrollbars";
 class App extends Component {
