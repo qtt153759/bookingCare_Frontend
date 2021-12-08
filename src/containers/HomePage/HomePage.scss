@@ -40,6 +40,11 @@
     &.section-outstanding-doctor {
         background: #f5f5f5;
     }
+    &.section-about {
+        height: 500px !important;
+        border-top: 1px solid #f5f5f5;
+        border-top: 1px solid #f5f5f5;
+    }
     .section-body {
         .section-customize {
             .bg-image {
@@ -118,5 +123,37 @@
         display: flex;
         justify-content: center;
         margin-bottom: 10px;
+    }
+}
+
+.home-footer {
+    padding-top: 8px;
+    text-align: center;
+    a {
+        text-decoration: unset; //nếu không muốn thẻ a có cái gạch dưới thì dùng text-decoration
+    }
+}
+.section-about {
+    padding: 0 100px;
+    .section-about-header {
+        padding: 20px 10px;
+        font-size: 22px;
+        font-weight: 600;
+    }
+    .section-about-content {
+        display: flex;
+        gap: 15px; //khoảng cách giữa các item của thằng flex
+        width: 100%;
+        .content-left {
+            width: 60%;
+        }
+        .content-right {
+            width: 40%;
+            p {
+                padding-top: 15px;
+                text-align: justify; //justify là giống văn bản bình thường,center là căn giữa
+                font-style: italic;
+            }
+        }
     }
 }

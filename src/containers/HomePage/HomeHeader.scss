@@ -1,8 +1,11 @@
 .home-header-container {
-    height: 70px;
+    height: 60px;
     width: 100%;
     padding: 0 40px;
-
+    background-color: white;
+    position: sticky; //cài sticky cho thanh header chạy theo khi scroll, dùng kèm top:0;
+    top: 0; //xác định tọa độ gắn sticky so vs màn hình
+    z-index: 10000; //cho z index để khi cuộn chuột cho nó mượt
     .home-header-content {
         width: 100%;
         height: 100%;
