@@ -2,18 +2,85 @@
     height: 330px;
     background: #f5f5f5;
     border: red solid 1px;
-}
 
-//reset slick slider css
+    .specialty-contenter {
+        margin: 0 100px;
+        display: flex;
+        flex-direction: column;
 
-.slick-prev {
-    //2 cái nài trong thư viện, chịu khó vào google inspect
-    border: 1px solid green !important;
-    position: relative !important;
-    left: 0 !important; //cách viền trái
-}
-.slick-next {
-    //2 cái nài trong thư viện
-    border: 1px solid red !important;
-    right: 0 !important;
+        .specialty-header {
+            height: 60px;
+            margin-bottom: 30px;
+            padding-top: 30px;
+            .title-section {
+                font-size: 22px;
+                font-weight: 600;
+            }
+            .btn-section {
+                float: right; //cho sang bên phải
+                padding: 10px 15px;
+                border: none;
+                outline: none;
+                display: block;
+                background: #ebebed;
+                color: black;
+                cursor: pointer;
+                text-transform: uppercase; //cách chuyển text
+                &:hover {
+                    color: #fff;
+                    background: #f7d800;
+                }
+            }
+        }
+
+        .specialty-body {
+            .specialty-customize {
+                .bg-image {
+                    height: 150px;
+                    width: 278px; //dùng với div thì ảnh ko bị vỡ như img nhưng phải set chiều cao
+                    background: url("../../../assets//specialty/co-xuong-khop.jpg");
+                    background-position: center center; //chỉnh center bên trong cái img, không liên quan khung ảnh
+                    background-repeat: no-repeat;
+                    background-size: cover;
+                    background-color: #eee;
+                }
+            }
+            //reset slick slider css
+
+            .slick-prev {
+                //làm với thư viện nên luôn cần !important
+                //2 cái nài trong thư viện, chịu khó vào google inspect
+                left: -10px !important; //cách viền trái
+                z-index: 1000 !important; //một trang web có trục z xét độ ưu tiên
+                height: 48px !important;
+                width: 44px !important;
+                background-color: greenyellow !important;
+                background: #fff !important;
+                border: 2px solid #d7d7d7 !important;
+
+                &:hover {
+                    background: #eceaea !important ;
+                }
+            }
+            .slick-prev::before,//2 cái giống nhau thì viết chung
+            .slick-next::before {
+                font-family: FontAwesome !important;
+                color: red !important;
+            }
+            .slick-next {
+                //2 cái nài trong thư viện
+                right: -10px !important; //cách viền trái
+                z-index: 1000 !important; //một trang web có trục z xét độ ưu tiên
+                height: 48px !important;
+                width: 44px !important;
+                background-color: greenyellow !important;
+                background: #fff !important;
+                border: 2px solid #d7d7d7 !important;
+
+                &:hover {
+                    background: #eceaea !important ;
+                }
+            }
+        }
+    }
 }
