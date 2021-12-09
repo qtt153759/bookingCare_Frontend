@@ -8,7 +8,7 @@ import * as serviceWorker from "./serviceWorker";
 import IntlProviderWrapper from "./hoc/IntlProviderWrapper";
 
 import { Provider } from "react-redux";
-import reduxStore, { persistor } from "./redux";
+import reduxStore, { persistor } from "./redux"; //cấu hình cho redux
 
 const renderApp = () => {
     ReactDOM.render(
@@ -17,6 +17,7 @@ const renderApp = () => {
             <IntlProviderWrapper>
                 <App persistor={persistor} />
                 {/*persistor giúp lưu trữ 1 biến của redux ko khác gì local store*/}
+                {/* React chỉ lưu state trong component còn redux là lưu tất  */}
                 {/* index là file đầu tiên chạy sau đó nó chạy vào App */}
             </IntlProviderWrapper>
         </Provider>,

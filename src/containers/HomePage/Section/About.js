@@ -20,10 +20,11 @@ class About extends Component {
                             height="400"
                             src="https://www.youtube.com/embed/21tjOW8BvB4"
                             title="YouTube video player"
-                            frameborder="0"
+                            frameBorder="0"
                             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                            allowfullscreen
+                            allowFullScreen
                         ></iframe>
+                        {/* phải viết theo quy chuẩn ko thì sẽ có warning vd: frameBorder thay vì frameborder */}
                     </div>
                     <div className="content-right">
                         <p>
@@ -42,7 +43,7 @@ class About extends Component {
         );
     }
 }
-
+//Redux khác Local Storage là redux kết nối liên tục vs react còn localStorage koo thay đổi state đc
 const mapStateToProps = (state) => {
     //map state từ redux và inject vào component, thường trong mục store/action
     //redux nó nhớ
