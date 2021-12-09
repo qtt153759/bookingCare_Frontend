@@ -14,7 +14,7 @@ class HomeHeader extends Component {
     };
     render() {
         let language = this.props.language;
-        console.log("check props", this.props); //lấy state từ redux
+        console.log("check user info", this.props.userInfo); //lấy state từ redux
         return (
             //buộc phải xuất ra 1 block
             <React.Fragment>
@@ -22,7 +22,7 @@ class HomeHeader extends Component {
                 <div className="home-header-container">
                     <div className="home-header-content">
                         <div className="left-content">
-                            <i class="fas fa-bars"></i>
+                            <i className="fas fa-bars"></i>
                             <img className="header-logo" src={logo} />
                         </div>
                         <div className="center-content">
@@ -193,6 +193,7 @@ const mapStateToProps = (state) => {
         //các key
         isLoggedIn: state.user.isLoggedIn,
         language: state.app.language,
+        userInfo: state.user.userInfo,
     };
 };
 
