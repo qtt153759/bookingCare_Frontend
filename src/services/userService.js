@@ -25,10 +25,14 @@ const editUserService = (inputData) => {
     return axios.put("/api/edit-user", inputData); //you cannot do like delete,
     //dont use: data:inputData, because in server it will look like that data{{id,email,firstName,LastName}}
 };
+const getAllCodeService = (inputType) => {
+    return axios.get(`/api/allcode?type=${inputType}`);
+};
 export {
     handleLoginApi,
     getAllUsers,
     createNewUserService,
     deleteUserService,
     editUserService,
+    getAllCodeService,
 };
