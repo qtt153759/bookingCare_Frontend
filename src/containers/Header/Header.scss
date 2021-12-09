@@ -20,4 +20,23 @@
             font-size: $base-size + 1px;
         }
     }
+    .languages {
+        .language-en {
+            margin-left: 10px;
+            margin-right: 15px;
+            cursor: pointer;
+            &.active {
+                color: #30d663;
+                opacity: 1;
+            }
+        }
+        .language-vi {
+            cursor: pointer;
+            &.active {
+                //&.active là nó repete liên tục còn &:active là nó nháy đúng 1 lần r tắt
+                color: orange;
+                opacity: 1;
+            }
+        }
+    }
 }
