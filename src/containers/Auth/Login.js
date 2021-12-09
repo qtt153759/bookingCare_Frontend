@@ -98,7 +98,7 @@ class Login extends Component {
                             </div>
                             <div className="col-12 form-group login-input">
                                 <label>Password:</label>
-                                <div class="custom-input-password">
+                                <div className="custom-input-password">
                                     <input
                                         type={
                                             this.state.isShowPassword
@@ -133,7 +133,7 @@ class Login extends Component {
                             </div>
                             <div className="col-12">
                                 <button
-                                    class="btn-login"
+                                    className="btn-login"
                                     onClick={(event) => {
                                         this.handleLogin();
                                     }}

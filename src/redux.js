@@ -24,7 +24,7 @@ const reduxStateSyncConfig = {
     whitelist: [actionTypes.APP_START_UP_COMPLETE, actionTypes.CHANG_LANGUAGE],
 };
 
-const rootReducer = createRootReducer(history);
+const rootReducer = createRootReducer(history); //Lấy cái đã persistReducer trong "./store/reducers/rootReducer"
 const middleware = [
     routerMiddleware(history),
     thunkMiddleware,
@@ -38,12 +38,13 @@ const composeEnhancers =
         : compose;
 
 const reduxStore = createStore(
+    //tạo Store
     rootReducer,
     composeEnhancers(applyMiddleware(...middleware))
 );
 
 export const dispatch = reduxStore.dispatch;
 
-export const persistor = persistStore(reduxStore);
+export const persistor = persistStore(reduxStore); //dùng persisStore
 
 export default reduxStore;

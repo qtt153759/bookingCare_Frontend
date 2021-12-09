@@ -10,18 +10,26 @@ import storage from "redux-persist/lib/storage";
 import { persistReducer } from "redux-persist";
 
 const persistCommonConfig = {
+    //setup config
     storage: storage,
     stateReconciler: autoMergeLevel2,
 };
 const userPersistConfig = {
+    //setup config
     ...persistCommonConfig,
     key: "user",
-    whitelist: ["isLoggedIn", "userInfo", "language"], //neu login thanh cong thi thong tin dc luu o local storage
+    whitelist: ["isLoggedIn", "userInfo"], //neu login thanh cong thi thong tin dc luu o local storage
 };
-
+const appPersistConfig = {
+    //setup config
+    ...persistCommonConfig,
+    key: "app",
+    whitelist: ["language"],
+};
 export default (history) =>
     combineReducers({
+        //tạo các persistReducer trong combineReducer,để vào redux.js store
         router: connectRouter(history),
-        user: persistReducer(userPersistConfig, userReducer),
-        app: appReducer,
+        user: persistReducer(userPersistConfig, userReducer), //theo công thức persistReducer(persistConfig, rootReducer)
+        app: persistReducer(appPersistConfig, appReducer),
     });
