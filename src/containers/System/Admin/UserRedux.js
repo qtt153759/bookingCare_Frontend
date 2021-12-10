@@ -3,6 +3,7 @@ import { FormattedMessage } from "react-intl";
 import { connect } from "react-redux";
 import { getAllCodeService } from "../../../services/userService";
 import { LANGUAGES } from "../../../utils";
+import * as actions from "../../../store/actions";
 class UserRedux extends Component {
     constructor(props) {
         super(props);
@@ -12,20 +13,35 @@ class UserRedux extends Component {
     }
 
     async componentDidMount() {
-        try {
-            let res = await getAllCodeService("gender");
-            if (res && res.errCode === 0) {
-                this.setState({
-                    genderArr: res.data,
-                });
-            }
-        } catch (e) {}
+        //Cách làm lấy api bình thường
+        // try {
+        //     let res = await getAllCodeService("gender");
+        //     if (res && res.errCode === 0) {
+        //         this.setState({
+        //             genderArr: res.data,
+        //         });
+        //     }
+        // } catch (e) {}
+        this.props.getGenderStart(); //cách viết rút gọn vs mapDispatchToProps và connect bằng thư viện "react-redux"
+        //tương đường vs this.props.dispatch(action.getGenderStart());
     }
-
+    componentDidUpdate(prevProps, prevState, snapshot) {
+        //render=>didupdate liên tục
+        //hiện tại (this) và quá khứ (previous)
+        //lúc đầu state.genderRedux[] và props.genderRedux[3];
+        //lúc sau thay đổi state.genderRedux[3] và props.genderRedux[3]
+        //làm câu điều kiện để nó dừng lại
+        if (prevProps.genderRedux !== this.props.genderRedux) {
+            this.setState({
+                genderArr: this.props.genderRedux,
+            });
+        }
+    }
     render() {
-        console.log("hoi danit check state ", this.state);
         let genders = this.state.genderArr;
         let language = this.props.language; //nhớ là this.props.language,không phải this.state.props
+        console.log("hoi danit check props ", this.props.genderRedux);
+        console.log("hoi danit check state ", genders);
         return (
             <div className="user-redux-container">
                 <div className="title">UserRedux hoi dan it</div>
@@ -85,11 +101,12 @@ class UserRedux extends Component {
                                     {genders &&
                                         genders.length > 0 &&
                                         genders.map((item, index) => {
-                                            //console.log(index); 0,1,2
+                                            console.log(index);
+                                            console.log(item);
                                             return (
                                                 <option key={index}>
                                                     {language === LANGUAGES.VI
-                                                        ? item.valueV
+                                                        ? item.valueVi
                                                         : item.valueEn}
                                                 </option>
                                             );
@@ -136,11 +153,17 @@ class UserRedux extends Component {
 const mapStateToProps = (state) => {
     return {
         language: state.app.language,
+        genderRedux: state.admin.genders,
     };
 };
 
 const mapDispatchToProps = (dispatch) => {
-    return {};
+    return {
+        // processLogout: () => dispatch(actions.processLogout()),
+        // changeLanguageAppRedux: (language) =>
+        //     dispatch(actions.changeLanguageApp(language)),
+        getGenderStart: () => dispatch(actions.fetchGenderStart()),
+    };
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(UserRedux);
