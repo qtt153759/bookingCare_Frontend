@@ -39,7 +39,7 @@ const appReducer = (state = initialState, action) => {
                 language: action.language, //action chỉ là 1 object ghi thông tin
             };
         default:
-            return state;
+            return state; //mặc định là trả về state
     }
 };
 

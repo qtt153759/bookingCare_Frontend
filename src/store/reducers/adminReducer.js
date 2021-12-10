@@ -1,33 +1,35 @@
-import actionTypes from '../actions/actionTypes';
+import actionTypes from "../actions/actionTypes";
 
 const initialState = {
-    isLoggedIn: false,
-    adminInfo: null
-}
+    genders: [],
+    roles: [],
+    position: [],
+};
 
-const appReducer = (state = initialState, action) => {
+const adminReducer = (state = initialState, action) => {
+    //state=initialState
     switch (action.type) {
-        case actionTypes.ADMIN_LOGIN_SUCCESS:
+        case actionTypes.FETCH_GENDER_START:
+            console.log("getch gender start: ", action);
             return {
-                ...state,
-                isLoggedIn: true,
-                adminInfo: action.adminInfo
-            }
-        case actionTypes.ADMIN_LOGIN_FAIL:
+                ...state, //reducer map vào state
+            };
+        case actionTypes.FETCH_GENDER_SUCCESS:
+            let copyState = { ...state };
+            copyState.genders = action.data;
+            console.log("getch gender success: ", action);
             return {
-                ...state,
-                isLoggedIn: false,
-                adminInfo: null
-            }
-        case actionTypes.PROCESS_LOGOUT:
+                ...copyState, //không nên return{...state}, nên dùng return {...copyState}
+            };
+        case actionTypes.FETCH_GENDER_FAILED:
+            console.log("getch gender failed: ", action);
             return {
-                ...state,
-                isLoggedIn: false,
-                adminInfo: null
-            }
-        default:
-            return state;
-    }
-}
+                ...state, //reducer map vào state
+            };
 
-export default appReducer;
+        default:
+            return state; //mặc định là trả về state
+    }
+};
+
+export default adminReducer;
