@@ -7,7 +7,6 @@ const handleLoginApi = (userEmail, userPassword) => {
     //ham nay return status trong userController cua backend, tuy nhien axios cai dat tra ve dung data.err
 };
 const getAllUsers = (inputId) => {
-    console.log("Start connect", inputId);
     return axios.get(`/api/get-all-users?id=${inputId}`);
 };
 

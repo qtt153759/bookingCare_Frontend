@@ -5,6 +5,7 @@ const initialState = {
     genders: [],
     roles: [],
     position: [],
+    users: [],
 };
 
 const adminReducer = (state = initialState, action) => {
@@ -12,18 +13,15 @@ const adminReducer = (state = initialState, action) => {
     switch (action.type) {
         case actionTypes.FETCH_GENDER_START:
             state.isLoadingGender = true;
-            console.log("getch gender start: ", action);
             return {
                 ...state, //reducer map vào state
             };
         case actionTypes.FETCH_GENDER_SUCCESS:
             state.genders = action.data;
-            console.log("getch gender success: ", action);
             return {
                 ...state, //với redux thì edit thẳng biến state này thì ko sao
             };
         case actionTypes.FETCH_GENDER_FAILED:
-            console.log("getch gender failed: ", action);
             state.isLoadingGender = false;
             state.genders = [];
             return {
@@ -49,7 +47,16 @@ const adminReducer = (state = initialState, action) => {
             return {
                 ...state, //reducer map vào state
             };
-
+        case actionTypes.FETCH_ALL_USERS_SUCCESS:
+            state.users = action.users;
+            return {
+                ...state,
+            };
+        case actionTypes.FETCH_ALL_USERS_FAILED:
+            state.users = [];
+            return {
+                ...state,
+            };
         default:
             return state; //mặc định là trả về state
     }

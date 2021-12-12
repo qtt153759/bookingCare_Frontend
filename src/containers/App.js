@@ -74,8 +74,8 @@ class App extends Component {
                                 </Switch>
                             </CustomScrollbars>
                         </div>
-
-                        <ToastContainer
+                        {/* ToastContainer là một thư viện hiện thị alert */}
+                        {/* <ToastContainer
                             className="toast-container"
                             toastClassName="toast-item"
                             bodyClassName="toast-item-body"
@@ -86,6 +86,17 @@ class App extends Component {
                             closeOnClick={false}
                             draggable={false}
                             closeButton={<CustomToastCloseButton />}
+                        /> */}
+                        <ToastContainer
+                            position="bottom-right"
+                            autoClose={5000}
+                            hideProgressBar={false}
+                            newestOnTop={false}
+                            closeOnClick
+                            rtl={false}
+                            pauseOnFocusLoss
+                            draggable
+                            pauseOnHover
                         />
                     </div>
                 </Router>

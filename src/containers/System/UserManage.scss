@@ -25,6 +25,7 @@
     background-color: #04aa6d;
     color: white;
 }
+//không nên để .btn-edit bên ngoài ntn nhé, vì thế này nó sẽ thành globla, đến cả btn-edit tronng file TableManageUser.js cx ăn
 .btn-edit {
     width: 50px;
     border: none;

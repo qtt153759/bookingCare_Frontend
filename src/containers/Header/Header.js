@@ -67,7 +67,7 @@ const mapStateToProps = (state) => {
     return {
         isLoggedIn: state.user.isLoggedIn, //key user tìm thấy trong root: reducer
         language: state.app.language, //keys app tìm thấy trong root reducer
-        userInfo: state.user.userInfo,
+        userInfo: state.user.userInfo, //=this.props.userInfo
     };
 };
 

@@ -21,7 +21,6 @@ class ModalEditUser extends Component {
         let user = this.props.currentUser;
         console.log("test", this.props);
         if (user && !_.isEmpty(user)) {
-            console.log("ok");
             this.setState({
                 id: user.id,
                 email: user.email,
@@ -71,7 +70,7 @@ class ModalEditUser extends Component {
     };
 
     render() {
-        console.log("check parent props", this.props);
+        // console.log("check parent props", this.props);
         return (
             //toggle la moi khi bam ra ngoai vung modal thi modal se tu dong
             <Modal
