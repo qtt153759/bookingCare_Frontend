@@ -2,7 +2,10 @@ import actionTypes from "./actionTypes";
 import {
     getAllCodeService,
     createNewUserService,
+    getAllUsers,
+    deleteUserService,
 } from "../../services/userService";
+import { toast } from "react-toastify"; //library for alert
 // export const fetchGenderStart = () => ({
 //     type: actionTypes.FEETCH_GENDER_START,
 // });
@@ -86,7 +89,9 @@ export const createNewUser = (data) => {
             let res = await createNewUserService(data);
             console.log("hoi dan it check create user: ", res);
             if (res && res.errCode === 0) {
+                toast.success("Create a new user succeed");
                 dispatch(saveUserSuccess());
+                dispatch(fetchAllUsersStart()); //cập nhật lại table data ngay khi save thành công, không thì phải refresh trang
             } else {
                 dispatch(saveUserFailed());
             }
@@ -98,8 +103,64 @@ export const createNewUser = (data) => {
 };
 
 export const saveUserSuccess = () => ({
-    type: "CREATE_USER_SUCCESS",
+    type: actionTypes.CREATE_USER_SUCCESS,
 });
 export const saveUserFailed = () => ({
-    type: "CREATE_USER_FAILED",
+    type: actionTypes.CREATE_USER_FAILED,
+});
+export const fetchAllUsersStart = () => {
+    //nếu không return 1 function thì error:Unhandled Rejection (Error):Actions must be plain objects
+    return async (dispatch, getState) => {
+        try {
+            let res = await getAllUsers("All");
+            if (res && res.errCode === 0) {
+                dispatch(fetchAllUsersSuccess(res.users.reverse())); //đảo ngược array
+                //nó trả ra res.users ko phải data=>nếu res.data=>undifined
+            } else {
+                toast.error("Fetch all user error");
+                dispatch(fetchAllUsersFailed());
+            }
+        } catch (e) {
+            toast.error("Fetch all user error");
+            console.log("fetchRoleStart error", e);
+            dispatch(fetchAllUsersFailed());
+        }
+    };
+};
+export const fetchAllUsersSuccess = (data) => ({
+    type: actionTypes.FETCH_ALL_USERS_SUCCESS,
+    users: data,
+});
+
+export const fetchAllUsersFailed = () => ({
+    type: actionTypes.FETCH_ALL_USERS_FAILED,
+});
+export const deletaAUser = (userId) => {
+    //bản chất thì delete cx chẳng cần reducer đâu
+    return async (dispatch, getState) => {
+        try {
+            let res = await deleteUserService(userId);
+            console.log("hoi dan it check create user: ", res);
+            if (res && res.errCode === 0) {
+                toast.success("Delete user succeed");
+                dispatch(deleteUserSuccess());
+                dispatch(fetchAllUsersStart()); //cập nhật lại table data ngay khi save thành công, không thì phải refresh trang
+            } else {
+                toast.error("Delete the user error");
+                dispatch(saveUserFailed());
+            }
+        } catch (e) {
+            toast.error("Delete the user error");
+            dispatch(deleteUsersFailed());
+            console.log("saveUserFailed error", e);
+        }
+    };
+};
+export const deleteUserSuccess = (data) => ({
+    type: actionTypes.DELETE_USER_SUCCESS,
+    users: data,
+});
+
+export const deleteUsersFailed = () => ({
+    type: actionTypes.DELETE_USER_FAILED,
 });

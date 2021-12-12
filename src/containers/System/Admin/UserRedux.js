@@ -6,6 +6,7 @@ import { LANGUAGES } from "../../../utils";
 import * as actions from "../../../store/actions";
 import Lightbox from "react-image-lightbox"; //dùng light box để mở ảnh to trên màn hình
 import "react-image-lightbox/style.css"; //library trên npm lightbox
+import TableManageUser from "./TableManageUser";
 class UserRedux extends Component {
     constructor(props) {
         super(props);
@@ -25,7 +26,6 @@ class UserRedux extends Component {
             gender: "",
             position: "",
             role: "",
-            image: "",
         };
     }
 
@@ -75,6 +75,20 @@ class UserRedux extends Component {
                     arrPositions && arrPositions.length > 0
                         ? arrPositions[0].key
                         : "",
+            });
+        }
+        if (prevProps.listUsers !== this.props.listUsers) {
+            //sau khi ấn nut save => số lượng user trong redux thay đổi => reset lại state
+            this.setState({
+                email: "",
+                password: "",
+                lastName: "",
+                firstName: "",
+                phoneNumber: "",
+                address: "",
+                gender: "",
+                position: "",
+                role: "",
             });
         }
         //react có thể loop để update cả trăm lần ko phải lo
@@ -364,7 +378,7 @@ class UserRedux extends Component {
                                     ></div>
                                 </div>
                             </div>
-                            <div className="col-12 mt-3">
+                            <div className="col-12 my-3">
                                 <button
                                     className="btn btn-primary"
                                     onClick={() => this.handleSaveUser()}
@@ -372,9 +386,14 @@ class UserRedux extends Component {
                                     <FormattedMessage id="manage-user.save" />
                                 </button>
                             </div>
+                            {/* Cách nhét component TableManageUser*/}
+                            <div className="col-12 mb-5">
+                                <TableManageUser />
+                            </div>
                         </div>
                     </div>
                 </div>
+
                 {/* isOpen=true thì =>LightBox */}
                 {this.state.isOpen === true && (
                     <Lightbox
@@ -394,6 +413,7 @@ const mapStateToProps = (state) => {
         roleRedux: state.admin.roles,
         positionRedux: state.admin.positions,
         isLoadingGender: state.admin.isLoadingGender,
+        listUsers: state.admin.users,
     };
 };
 
@@ -406,6 +426,7 @@ const mapDispatchToProps = (dispatch) => {
         getPositionStart: () => dispatch(actions.fetchPositionStart()),
         getRoleStart: () => dispatch(actions.fetchRoleStart()),
         createNewUser: (data) => dispatch(actions.createNewUser(data)),
+        fetchUserRedux: () => dispatch(actions.fetchAllUsersStart()),
     };
 };
 
