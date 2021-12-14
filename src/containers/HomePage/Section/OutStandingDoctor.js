@@ -4,7 +4,7 @@ import "./OutStandingDoctor.scss";
 import Slider from "react-slick"; //dùng library slick để chuyển slide
 import * as actions from "../../../store/actions";
 import { LANGUAGES } from "../../../utils";
-
+import { FormattedMessage } from "react-intl";
 class OutStandDoctor extends Component {
     constructor(props) {
         super(props);
@@ -24,16 +24,18 @@ class OutStandDoctor extends Component {
     }
     render() {
         let arrDoctors = this.state.arrDoctors;
-        arrDoctors = arrDoctors.concat(arrDoctors).concat(arrDoctors); //có ít dữ liệu thì chịu khó nhân lên
+        // arrDoctors = arrDoctors.concat(arrDoctors).concat(arrDoctors); //có ít dữ liệu thì chịu khó nhân lên
         let language = this.props.language;
         return (
             <div className="section-share section-outstanding-doctor">
                 <div className="section-contaiter">
                     <div className="section-header">
                         <span className="title-section">
-                            Bác sĩ nổi bật tuần qua
+                            <FormattedMessage id="homepage.out-standing-doctor" />
                         </span>
-                        <button className="btn-section">Xem thêm</button>
+                        <button className="btn-section">
+                            <FormattedMessage id="homepage.more-infor" />
+                        </button>
                     </div>
                     <div className="section-body">
                         <Slider {...this.props.settings}>
