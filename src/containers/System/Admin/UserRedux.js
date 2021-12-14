@@ -60,7 +60,7 @@ class UserRedux extends Component {
                 genderArr: arrGenders,
                 gender:
                     arrGenders && arrGenders.length > 0
-                        ? arrGenders[0].key
+                        ? arrGenders[0].keyMap
                         : "",
             });
             console.log("arrGender:", arrGenders);
@@ -69,7 +69,7 @@ class UserRedux extends Component {
             let arrRoles = this.props.roleRedux;
             this.setState({
                 roleArr: arrRoles,
-                role: arrRoles && arrRoles.length > 0 ? arrRoles[0].key : "",
+                role: arrRoles && arrRoles.length > 0 ? arrRoles[0].keyMap : "",
             });
         }
         if (prevProps.positionRedux !== this.props.positionRedux) {
@@ -78,7 +78,7 @@ class UserRedux extends Component {
                 positionArr: arrPositions,
                 position:
                     arrPositions && arrPositions.length > 0
-                        ? arrPositions[0].key
+                        ? arrPositions[0].keyMap
                         : "",
             });
         }
@@ -97,14 +97,14 @@ class UserRedux extends Component {
                 avatar: "",
                 gender:
                     arrGenders && arrGenders.length > 0
-                        ? arrGenders[0].key
+                        ? arrGenders[0].keyMap
                         : "", //tương tự như lúc đầu thôi reset gender về biến đầu tiên trong this.props.genderRedux
                 //biến gender được reset bằng value={gender} trong render
                 position:
                     arrPositions && arrPositions.length > 0
-                        ? arrPositions[0].key
+                        ? arrPositions[0].keyMap
                         : "",
-                role: arrRoles && arrRoles.length > 0 ? arrRoles[0].key : "",
+                role: arrRoles && arrRoles.length > 0 ? arrRoles[0].keyMap : "",
                 action: CRUD_ACTIONS.CREATE, //lúc nào có listUser thay đổi khi edit hay create thì sau cx thành create
                 previewImgURL: "",
             });
@@ -355,7 +355,7 @@ class UserRedux extends Component {
                                             return (
                                                 <option
                                                     key={index}
-                                                    value={item.key}
+                                                    value={item.keyMap}
                                                 >
                                                     {language === LANGUAGES.VI
                                                         ? item.valueVi
@@ -382,7 +382,7 @@ class UserRedux extends Component {
                                             return (
                                                 <option
                                                     key={index}
-                                                    value={item.key}
+                                                    value={item.keyMap}
                                                 >
                                                     {language === LANGUAGES.VI
                                                         ? item.valueVi
@@ -409,7 +409,7 @@ class UserRedux extends Component {
                                             return (
                                                 <option
                                                     key={index}
-                                                    value={item.key}
+                                                    value={item.keyMap}
                                                 >
                                                     {language === LANGUAGES.VI
                                                         ? item.valueVi

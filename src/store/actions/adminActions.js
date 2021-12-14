@@ -5,6 +5,7 @@ import {
     getAllUsers,
     deleteUserService,
     editUserService,
+    getTopDoctorHomeService,
 } from "../../services/userService";
 import { toast } from "react-toastify"; //library for alert
 // export const fetchGenderStart = () => ({
@@ -192,3 +193,21 @@ export const editUserSuccess = (data) => ({
 export const editUserFailed = () => ({
     type: actionTypes.EDIT_USER_FAILED,
 });
+export const fetchTopDoctor = () => {
+    return async (dispatch, getState) => {
+        try {
+            let res = await getTopDoctorHomeService("");
+            if (res && res.errCode === 0) {
+                dispatch({
+                    //thực chất cũng chẳng cần hàm gì đâu dispatch 1 action là ok r
+                    type: actionTypes.FETCH_TOP_DOCTORS_SUCCESS,
+                    dataDoctors: res.data,
+                });
+            } else {
+                dispatch(actionTypes.FETCH_TOP_DOCTORS_FAILED);
+            }
+        } catch (e) {
+            dispatch(actionTypes.FETCH_TOP_DOCTORS_FAILED);
+        }
+    };
+};
