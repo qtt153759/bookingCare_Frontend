@@ -17,10 +17,10 @@ class HomePage extends Component {
         let settings = {
             //trong thư viện vào trang git npm react slick
             dots: false,
-            infinite: true,
+            infinite: false,
             speed: 500,
             slidesToShow: 4, //có mấy slide trên show
-            slidesToScroll: 1, //mỗi lần next thì tăng mấy
+            slidesToScroll: 2, //mỗi lần next thì tăng mấy
         };
         return (
             <div>
