@@ -4,6 +4,7 @@ import {
     createNewUserService,
     getAllUsers,
     deleteUserService,
+    editUserService,
 } from "../../services/userService";
 import { toast } from "react-toastify"; //library for alert
 // export const fetchGenderStart = () => ({
@@ -163,4 +164,31 @@ export const deleteUserSuccess = (data) => ({
 
 export const deleteUsersFailed = () => ({
     type: actionTypes.DELETE_USER_FAILED,
+});
+export const editaAUser = (data) => {
+    //bản chất thì delete cx chẳng cần reducer đâu
+    return async (dispatch, getState) => {
+        try {
+            let res = await editUserService(data);
+            if (res && res.errCode === 0) {
+                toast.success("Update user succeed");
+                dispatch(editUserSuccess());
+                dispatch(fetchAllUsersStart()); //cập nhật lại table data ngay khi save thành công, không thì phải refresh trang
+            } else {
+                toast.error("Update the user error");
+                dispatch(editUserFailed());
+            }
+        } catch (e) {
+            toast.error("Update the user error");
+            dispatch(editUserFailed());
+        }
+    };
+};
+export const editUserSuccess = (data) => ({
+    type: actionTypes.EDIT_USER_SUCCESS,
+    users: data,
+});
+
+export const editUserFailed = () => ({
+    type: actionTypes.EDIT_USER_FAILED,
 });

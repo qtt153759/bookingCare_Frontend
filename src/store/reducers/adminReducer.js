@@ -17,6 +17,7 @@ const adminReducer = (state = initialState, action) => {
                 ...state, //reducer map vào state
             };
         case actionTypes.FETCH_GENDER_SUCCESS:
+            state.isLoadingGender = false;
             state.genders = action.data;
             return {
                 ...state, //với redux thì edit thẳng biến state này thì ko sao
