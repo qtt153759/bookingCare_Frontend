@@ -36,6 +36,11 @@ const getAllDoctors = () => {
 const saveDetailDoctorService = (data) => {
     return axios.post("/api/save-infor-doctors", data); //truyen data theo syntax nhu v
 };
+const getDetailInforDoctor = (inputData) => {
+    //Nhầm get thành post ở đoạn này sẽ ko hiện lỗi ở cả front&&backend đâu, chỉ ko xuất ra input thôi, nên phải cẩn thận
+    return axios.get(`/api/get-detail-doctor-by-id?id=${inputData}`); //truyen data theo syntax nhu v
+};
+
 export {
     handleLoginApi,
     getAllUsers,
@@ -46,4 +51,5 @@ export {
     getTopDoctorHomeService,
     getAllDoctors,
     saveDetailDoctorService,
+    getDetailInforDoctor,
 };

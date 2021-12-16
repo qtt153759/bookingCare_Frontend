@@ -5,6 +5,7 @@ import Slider from "react-slick"; //dùng library slick để chuyển slide
 import * as actions from "../../../store/actions";
 import { LANGUAGES } from "../../../utils";
 import { FormattedMessage } from "react-intl";
+import { withRouter } from "react-router";
 class OutStandDoctor extends Component {
     constructor(props) {
         super(props);
@@ -22,6 +23,11 @@ class OutStandDoctor extends Component {
     componentDidMount() {
         this.props.loadTopDoctors();
     }
+    handleViewDetailDoctor = (doctor) => {
+        if (this.props.history) {
+            this.props.history.push(`/detail-doctor/${doctor.id}`); //Tương tự như hàm redirect với withRouter
+        }
+    };
     render() {
         let arrDoctors = this.state.arrDoctors;
         // arrDoctors = arrDoctors.concat(arrDoctors).concat(arrDoctors); //có ít dữ liệu thì chịu khó nhân lên
@@ -57,6 +63,11 @@ class OutStandDoctor extends Component {
                                         <div
                                             className="section-customize"
                                             key={index}
+                                            onClick={() =>
+                                                this.handleViewDetailDoctor(
+                                                    item
+                                                )
+                                            }
                                         >
                                             {/* Tạo nhiều lớp bọc một cái ảnh giúp chỉnh margin vs padding dễ hơn */}
                                             <div className="customize-border">
@@ -105,4 +116,6 @@ const mapDispatchToProps = (dispatch) => {
     };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(OutStandDoctor);
+export default withRouter(
+    connect(mapStateToProps, mapDispatchToProps)(OutStandDoctor)
+);
