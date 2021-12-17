@@ -7,10 +7,16 @@ import { FormattedMessage } from "react-intl"; //thư viện dùng để chuyể
 import { LANGUAGES } from "../../utils";
 import { changeLanguageApp } from "../../store/actions"; //gọi đến folder là biết ngay các hàm trong module con của nó vì file index.js xuất ra hết r
 //changeLanguageApp để action trong mapDispatchToProps
+import { withRouter } from "react-router";
 class HomeHeader extends Component {
     changeLanguage = (language) => {
         //chạy bằng redux thì mỗi lần thay đổi ngôn ngữ không cần reload lại trang
         this.props.changeLanguageAppRedux(language); //dùng hàm này thông qua redux ở mapDispatchToProps
+    };
+    returnToHome = () => {
+        if (this.props.history) {
+            this.props.history.push("/home");
+        }
     };
     render() {
         let language = this.props.language;
@@ -22,7 +28,11 @@ class HomeHeader extends Component {
                     <div className="home-header-content">
                         <div className="left-content">
                             <i className="fas fa-bars"></i>
-                            <img className="header-logo" src={logo} />
+                            <img
+                                className="header-logo"
+                                src={logo}
+                                onClick={() => this.returnToHome()}
+                            />
                         </div>
                         <div className="center-content">
                             <div className="child-content">
@@ -207,4 +217,6 @@ const mapDispatchToProps = (dispatch) => {
     };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(HomeHeader); //muốn lấy state của redux thì phải dùng connect
+export default withRouter(
+    connect(mapStateToProps, mapDispatchToProps)(HomeHeader)
+); //muốn lấy state của redux thì phải dùng connect
