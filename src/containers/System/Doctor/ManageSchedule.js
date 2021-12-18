@@ -9,6 +9,7 @@ import DatePicker from "../../../components/Input/DatePicker"; //thư viện dù
 import moment from "moment"; //thư viện dùng để format ngày tháng cho client, còn vs nodejs thì chúng ta dùng timeStam
 import { toast } from "react-toastify";
 import _, { result } from "lodash";
+import { saveBulkScheduleDoctor } from "../../../services/userService";
 class ManageSchedule extends Component {
     constructor(props) {
         super(props);
@@ -95,7 +96,7 @@ class ManageSchedule extends Component {
             currentDate: date[0], //cái thằng thư viện này nó nhả ra 1 array=> lấy phần tử đầu tiên
         });
     };
-    handleSaveSchedule = () => {
+    handleSaveSchedule = async () => {
         let result = []; //tạo mảng và push
         let { rangeTime, selectedDoctor, currentDate } = this.state;
         if (!currentDate) {
@@ -107,9 +108,10 @@ class ManageSchedule extends Component {
             toast.error("Invalid selected doctor");
             return;
         }
-        let formatedDate = moment(currentDate).format(
-            dateFormat.SEND_TO_SERVER
-        ); //server sẽ không hiểu được kiểu timeStamp=> về dạng DD/MM/YYYY bằng moment
+        // let formatedDate = moment(currentDate).format(
+        //     dateFormat.SEND_TO_SERVER
+        // );
+        let formatedDate = new Date(currentDate).getTime(); //Truyền về server dạng timeStamp
         if (rangeTime && rangeTime.length > 0) {
             let selectedTime = rangeTime.filter(
                 (item) => item.isSelected === true
@@ -120,7 +122,7 @@ class ManageSchedule extends Component {
                     let object = {};
                     object.doctorId = selectedDoctor.value;
                     object.date = formatedDate;
-                    object.time = schedule.keyMap;
+                    object.timeType = schedule.keyMap;
                     result.push(object);
                 });
             } else {
@@ -128,6 +130,12 @@ class ManageSchedule extends Component {
                 return;
             }
         }
+        let res = await saveBulkScheduleDoctor({
+            arrSchedule: result, //Phải trả về kiểu object ko đc dùng saveBulkScheduleDoctor(result)
+            doctorId: selectedDoctor.value,
+            formatedDate: formatedDate,
+        });
+        console.log("test ", res);
     };
     render() {
         // console.log("xem state", this.state);
@@ -170,7 +178,7 @@ class ManageSchedule extends Component {
                                             className={
                                                 item.isSelected === true
                                                     ? "btn btn-schedule active"
-                                                    : "btn btn-schedules"
+                                                    : "btn btn-schedule"
                                             }
                                             key={index}
                                             onClick={() =>

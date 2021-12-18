@@ -40,7 +40,9 @@ const getDetailInforDoctor = (inputData) => {
     //Nhầm get thành post ở đoạn này sẽ ko hiện lỗi ở cả front&&backend đâu, chỉ ko xuất ra input thôi, nên phải cẩn thận
     return axios.get(`/api/get-detail-doctor-by-id?id=${inputData}`); //truyen data theo syntax nhu v
 };
-
+const saveBulkScheduleDoctor = (data) => {
+    return axios.post("/api/bulk-create-schedule", data);
+};
 export {
     handleLoginApi,
     getAllUsers,
@@ -52,4 +54,5 @@ export {
     getAllDoctors,
     saveDetailDoctorService,
     getDetailInforDoctor,
+    saveBulkScheduleDoctor,
 };
