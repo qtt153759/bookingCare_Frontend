@@ -72,6 +72,11 @@ class Login extends Component {
             isShowPassword: !this.state.isShowPassword,
         });
     };
+    handleKeyDown = (event) => {
+        if (event.keyCode === 13 || event.key === "Enter") {
+            this.handleLogin();
+        }
+    };
     render() {
         //JSX
         return (
@@ -110,6 +115,9 @@ class Login extends Component {
                                         value={this.state.password}
                                         onChange={(event) =>
                                             this.handelOnChangePassword(event)
+                                        }
+                                        onKeyDown={(event) =>
+                                            this.handleKeyDown(event)
                                         }
                                     />
                                     {/*onChang onClich thay doi bien trong canh class*/}

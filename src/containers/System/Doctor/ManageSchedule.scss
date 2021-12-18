@@ -1,0 +1,26 @@
+.manage-schedule-container {
+    .manage-schedule-title {
+        text-transform: uppercase;
+        margin: 15px 0;
+        font-weight: 600;
+        font-size: 17px;
+        text-align: center;
+    }
+    .pick-hour-container {
+        padding-top: 20px;
+        padding-bottom: 20px;
+        display: flex;
+        gap: 20px;
+        flex-wrap: wrap; //co dãn thông minh theo màn hình
+        .btn-schedule {
+            padding: 5px 15px;
+            border: gray 1px solid;
+            &.active {
+                background-color: orange;
+            }
+        }
+    }
+    .btn-save-schedule {
+        margin-top: 20px;
+    }
+}

@@ -253,3 +253,21 @@ export const saveDetailDoctor = (data) => {
         }
     };
 };
+export const fetchAllScheduleTime = () => {
+    return async (dispatch, getState) => {
+        try {
+            let res = await getAllCodeService("TIME");
+            if (res && res.errCode === 0) {
+                dispatch({
+                    //thực chất cũng chẳng cần hàm gì đâu dispatch 1 action với type và dâta là ok r, ko cầ 1 function nữa làm gì
+                    type: actionTypes.FETCH_ALLCODE_TIME_SUCCESS,
+                    dataTime: res.data,
+                });
+            } else {
+                dispatch({ type: actionTypes.FETCH_ALLCODE_TIME_FAILED });
+            }
+        } catch (e) {
+            dispatch({ type: actionTypes.FETCH_ALLCODE_TIME_FAILED });
+        }
+    };
+};
