@@ -1,6 +1,8 @@
 .doctor-detail-container {
     height: 500px;
+
     .intro-doctor {
+        margin: 0 100px;
         display: flex;
         // height: 100px; Bỏ chiều cao thằng cha thì chiều cao thằng con bằng chính xác chiều cao thằng cha
         .content-left {
@@ -26,6 +28,18 @@
             }
         }
     }
+    .schedule-doctor {
+        margin: 0 100px;
+        border: red solid 1px;
+        height: 200px;
+        display: flex;
+        .content-left {
+            width: 50%;
+        }
+        .content-right {
+            width: 50%;
+        }
+    }
     .detail-infor-doctor {
         padding: 10px 100px;
         border-top: 1px solid #ddd;
@@ -38,6 +52,7 @@
             width: 100%;
         }
     }
+
     .comment-doctor {
         height: 50px;
     }
