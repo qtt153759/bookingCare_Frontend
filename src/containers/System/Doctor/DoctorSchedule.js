@@ -11,20 +11,25 @@ class DoctorSchedule extends Component {
         super(props);
         this.state = {
             allDays: [],
+            allAvailableTime: [],
         };
     }
     componentDidMount() {
         let { language } = this.props;
         this.setArrDays(language);
     }
+    //Hàm viết hoa chữ cái đầu
+    capitalizeFirstLetter(string) {
+        return string.charAt(0).toUpperCase() + string.slice(1);
+    }
     setArrDays = (language) => {
         let arrDays = [];
         for (let i = 0; i < 7; i++) {
             let object = {};
             if (language === LANGUAGES.VI) {
-                object.label = moment(new Date())
-                    .add(i, "days")
-                    .format("dddd-DD/MM"); //do đã import localization nên nó mặc định hiểu tiếng việt đầu tiên
+                object.label = this.capitalizeFirstLetter(
+                    moment(new Date()).add(i, "days").format("dddd-DD/MM")
+                ); //do đã import localization nên nó mặc định hiểu tiếng việt đầu tiên
             } else {
                 object.label = moment(new Date())
                     .add(i, "days")
@@ -56,11 +61,17 @@ class DoctorSchedule extends Component {
             let doctorId = this.props.doctorIdFromParent;
             let date = event.target.value;
             let res = await getScheduleDoctorByDate(doctorId, date);
-            console.log("check schedule", res);
+            if (res && res.errCode === 0) {
+                this.setState({
+                    allAvailableTime: res.data ? res.data : [],
+                });
+            }
+            console.log("res", res);
         }
     };
     render() {
-        let { allDays } = this.state;
+        let { allDays, allAvailableTime } = this.state;
+        let { language } = this.props;
         return (
             <div className="manage-schedule-container">
                 <div className="all-schedule">
@@ -78,7 +89,29 @@ class DoctorSchedule extends Component {
                             })}
                     </select>
                 </div>
-                <div className="all-available-time"></div>
+                <div className="all-available-time">
+                    <div className="text-calender">
+                        <i className="fas fa-calendar-alt">
+                            <span>Lịch khám</span>
+                        </i>
+                    </div>
+                </div>
+                <div className="time-content">
+                    {allAvailableTime && allAvailableTime.length > 0 ? (
+                        allAvailableTime.map((item, index) => {
+                            console.log("item", item.timeType);
+                            let timeDisplay =
+                                language === LANGUAGES.VI
+                                    ? item.timeTypeData.valueVi
+                                    : item.timeTypeData.valueEn;
+                            return <button key={index}>{timeDisplay}</button>;
+                        })
+                    ) : (
+                        <div>
+                            Bác sĩ không có lịch hẹn này vui lòng chọn ngày khác
+                        </div>
+                    )}
+                </div>
             </div>
         );
     }
