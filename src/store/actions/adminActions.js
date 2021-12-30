@@ -271,3 +271,41 @@ export const fetchAllScheduleTime = () => {
         }
     };
 };
+export const getRequiredDoctorInfor = () => {
+    //nếu không return 1 function thì error:Unhandled Rejection (Error):Actions must be plain objects
+    return async (dispatch, getState) => {
+        try {
+            dispatch({ type: actionTypes.FETCH_REQUIRED_DOCTOR_INFOR_START });
+            let resPrice = await getAllCodeService("PRICE");
+            let resPayment = await getAllCodeService("PAYMENT");
+            let resProvince = await getAllCodeService("PROVINCE");
+            if (
+                resPrice &&
+                resPrice.errCode === 0 &&
+                resPayment &&
+                resPayment.errCode === 0 &&
+                resProvince &&
+                resProvince.errCode === 0
+            ) {
+                let data = {
+                    resPrice: resPrice.data,
+                    resPayment: resPayment.data,
+                    resProvince: resProvince.data,
+                };
+                dispatch(fetchRequiredDoctorInforSuccess(data)); //fire action thì phải bọc trong dispatch
+            } else {
+                dispatch(fetchRequiredDoctorInforFailed());
+            }
+        } catch (e) {
+            console.log("fetchRequiredDoctorInforFailed error", e);
+            dispatch(fetchRequiredDoctorInforFailed());
+        }
+    };
+};
+export const fetchRequiredDoctorInforSuccess = (allRequiredData) => ({
+    type: actionTypes.FETCH_REQUIRED_DOCTOR_INFOR_SUCCESS, //FEETCH_GENDER_SUCCESS=>Unhandled Rejection (Error): Actions may not have an undefined "type" propert
+    data: allRequiredData, //biến data
+});
+export const fetchRequiredDoctorInforFailed = () => ({
+    type: actionTypes.FETCH_REQUIRED_DOCTOR_INFOR_FAILED,
+});
