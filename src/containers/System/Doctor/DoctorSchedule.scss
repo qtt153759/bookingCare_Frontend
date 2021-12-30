@@ -28,21 +28,36 @@
         }
     }
     .time-content {
-        display: flex;
-        gap: 15px;
-        flex-wrap: wrap; //không đủ chỗ tự động xuống dòng
-        button {
-            padding: 5px 10px;
-            border: none;
-            outline: none;
-            background-color: #fff0b4;
-            min-width: 120px; //Vd time 8:00 vs 14:00 thì 2 cái button này kích thước khác nhau=> set min width
-            border-radius: 3px;
-            font-weight: 600;
-            color: #333;
-            &:hover {
-                background-color: #45c3d2;
-                color: white;
+        .time-content-btns {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap; //không đủ chỗ tự động xuống dòng
+            button {
+                padding: 5px 10px;
+                border: none;
+                outline: none;
+                background-color: #fff0b4;
+                border-radius: 3px;
+                font-weight: 600;
+                color: #333;
+                &:hover {
+                    background-color: #45c3d2;
+                    color: white;
+                }
+            }
+            .btn-vi {
+                //class riêng không đặt trong button
+                min-width: 120px;
+            }
+            .btn-en {
+                min-width: 170px; //Vd time 8:00 vs 14:00 thì 2 cái button này kích thước khác nhau=> set min width
+            }
+            .no-schedule {
+                font-style: italic;
+                font-size: 14px;
+            }
+            .book-free {
+                margin-top: 10px;
             }
         }
     }

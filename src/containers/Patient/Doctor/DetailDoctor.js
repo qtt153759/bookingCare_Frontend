@@ -10,6 +10,7 @@ class DetailDoctor extends Component {
         super(props);
         this.state = {
             detailDoctor: {},
+            currentDoctorId: -1,
         };
     }
     async componentDidMount() {
@@ -17,9 +18,13 @@ class DetailDoctor extends Component {
         if (this.props.match.params.id) {
             let id = this.props.match.params.id;
             let res = await getDetailInforDoctor(id);
+            this.setState({
+                currentDoctorId: id, //Truyền luôn id vào currentDoctorId để thằng con nhận nhanh nhất
+            });
             if (res && res.errCode == 0) {
                 this.setState({
                     detailDoctor: res.data,
+                    // currentDoctorId: id,Chú ý bất đồng bộ, mục tiêu của ta là tạo thật nhanh currentDoctorId để truyền vào tk con
                 });
             }
             console.log("hoi dan it", res);
@@ -69,11 +74,14 @@ class DetailDoctor extends Component {
                     <div className="schedule-doctor">
                         <div className="content-left">
                             <DoctorSchedule
-                                doctorIdFromParent={
-                                    detailDoctor && detailDoctor.id
-                                        ? detailDoctor.id
-                                        : -1
-                                }
+                                //VÍ dụ minh họa cho thấy truyền id cho tk con bị chậm
+                                // doctorIdFromParent={
+                                //     detailDoctor && detailDoctor.id
+                                //         ? detailDoctor.id
+                                //         : -1
+                                // }
+                                //Cách truyền nhanh
+                                doctorIdFromParent={this.state.currentDoctorId}
                             />
                         </div>
                         <div className="content-right"></div>

@@ -3,6 +3,7 @@
     .intro-doctor {
         margin: 0 100px;
         display: flex;
+        padding: 10px 0;
         // height: 100px; Bỏ chiều cao thằng cha thì chiều cao thằng con bằng chính xác chiều cao thằng cha
         .content-left {
             width: 20%;
@@ -31,6 +32,7 @@
         margin: 0 100px;
         height: 200px;
         display: flex;
+        min-height: 200px;
         .content-left {
             width: 50%;
         }
