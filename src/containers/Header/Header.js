@@ -17,7 +17,6 @@ class Header extends Component {
     }
     componentDidMount() {
         let { userInfo } = this.props;
-        console.log(userInfo);
         let menu = [];
         if (userInfo && !_.isEmpty(userInfo)) {
             let role = userInfo.roleId;
@@ -38,7 +37,6 @@ class Header extends Component {
     };
     render() {
         const { processLogout, language, userInfo } = this.props;
-        console.log("check userinfo", this.props.userInfo);
 
         return (
             <div className="header-container">

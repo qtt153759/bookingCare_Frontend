@@ -63,7 +63,6 @@ class UserRedux extends Component {
                         ? arrGenders[0].keyMap
                         : "",
             });
-            console.log("arrGender:", arrGenders);
         }
         if (prevProps.roleRedux !== this.props.roleRedux) {
             let arrRoles = this.props.roleRedux;
@@ -140,7 +139,6 @@ class UserRedux extends Component {
     handleSaveUser = () => {
         let isValid = this.checkValidateInput();
         if (isValid === false) return;
-        console.log("action ", this.state.action);
         if (this.state.action === CRUD_ACTIONS.CREATE) {
             this.props.createNewUser({
                 email: this.state.email,
@@ -169,7 +167,6 @@ class UserRedux extends Component {
                 avatar: this.state.avatar,
             });
         }
-        console.log("state:", this.state);
     };
     checkValidateInput = () => {
         let isValid = true;

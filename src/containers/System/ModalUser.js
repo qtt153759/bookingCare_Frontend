@@ -77,8 +77,6 @@ class ModalUser extends Component {
     };
 
     render() {
-        console.log("check child props", this.props); //cai props nay chi la bien truyen vao constructor moi khi goi ModalUser
-        console.log("check child open modal ", this.props.isOpen);
         return (
             //toggle la moi khi bam ra ngoai vung modal thi modal se tu dong
             <Modal

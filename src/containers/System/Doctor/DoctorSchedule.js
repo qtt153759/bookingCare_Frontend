@@ -96,7 +96,6 @@ class DoctorSchedule extends Component {
                     allAvailableTime: res.data ? res.data : [],
                 });
             }
-            console.log("res", res);
         }
     };
     render() {
@@ -133,7 +132,6 @@ class DoctorSchedule extends Component {
                         <>
                             <div className="time-content-btns">
                                 {allAvailableTime.map((item, index) => {
-                                    console.log("item", item.timeType);
                                     let timeDisplay =
                                         language === LANGUAGES.VI
                                             ? item.timeTypeData.valueVi

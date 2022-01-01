@@ -70,7 +70,6 @@ class ModalEditUser extends Component {
     };
 
     render() {
-        // console.log("check parent props", this.props);
         return (
             //toggle la moi khi bam ra ngoai vung modal thi modal se tu dong
             <Modal

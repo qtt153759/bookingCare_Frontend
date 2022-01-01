@@ -28,7 +28,6 @@ class DetailDoctor extends Component {
                     // currentDoctorId: id,Chú ý bất đồng bộ, mục tiêu của ta là tạo thật nhanh currentDoctorId để truyền vào tk con
                 });
             }
-            console.log("hoi dan it", res);
         }
     }
     render() {

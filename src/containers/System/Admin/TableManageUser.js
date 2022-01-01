@@ -40,9 +40,6 @@ class TableManageUser extends Component {
         this.props.deletaAUserRedux(user.id);
     };
     handleEditUser = (user) => {
-        console.log("edit user", user);
-    };
-    handleEditUser = (user) => {
         this.props.handleEditUserFromParentKey(user);
     };
 

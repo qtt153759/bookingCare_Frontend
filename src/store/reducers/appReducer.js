@@ -33,7 +33,6 @@ const appReducer = (state = initialState, action) => {
                 },
             };
         case actionTypes.CHANG_LANGUAGE: //reducer map vào state
-            console.log("hoi dan it ", action);
             return {
                 ...state, //lưu lại những cái cũ
                 language: action.language, //action chỉ là 1 object ghi thông tin

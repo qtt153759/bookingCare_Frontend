@@ -110,12 +110,7 @@ class ManageDoctor extends Component {
                 resProvince,
                 "PROVINCE"
             );
-            console.log(
-                "check state ",
-                dataSelectPayment,
-                dataSelectPrice,
-                dataSelectProvince
-            );
+
             this.setState({
                 listPrice: dataSelectPrice,
                 listPayment: dataSelectPayment,
@@ -178,8 +173,6 @@ class ManageDoctor extends Component {
         let res = await getDetailInforDoctor(selectedDoctor.value);
         let { listPayment, listPrice, listProvince } = this.state;
         if (res && res.errCode === 0 && res.data && res.data.Markdown) {
-            console.log("res", res);
-            console.log("res doctor", res.data.Doctor_Infor);
             let markdown = res.data.Markdown;
             let addressClinic = "",
                 nameClinic = "",
@@ -234,7 +227,6 @@ class ManageDoctor extends Component {
                 note: "",
             });
         }
-        console.log(`Option selected:`, selectedDoctor);
     };
 
     //đây là hàm onChange của tk doctor do mình chọn, vs những trường như province,price,payment load động không phải ntn
@@ -257,7 +249,6 @@ class ManageDoctor extends Component {
     };
     render() {
         let { hasOldData } = this.state;
-        console.log("state", this.state);
         return (
             <div className="manage-doctor-container">
                 <div className="manage-doctor-title">

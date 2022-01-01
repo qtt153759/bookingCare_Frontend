@@ -91,7 +91,6 @@ export const createNewUser = (data) => {
     return async (dispatch, getState) => {
         try {
             let res = await createNewUserService(data);
-            console.log("hoi dan it check create user: ", res);
             if (res && res.errCode === 0) {
                 toast.success("Create a new user succeed");
                 dispatch(saveUserSuccess());
@@ -144,7 +143,6 @@ export const deletaAUser = (userId) => {
     return async (dispatch, getState) => {
         try {
             let res = await deleteUserService(userId);
-            console.log("hoi dan it check create user: ", res);
             if (res && res.errCode === 0) {
                 toast.success("Delete user succeed");
                 dispatch(deleteUserSuccess());

@@ -140,10 +140,8 @@ class ManageSchedule extends Component {
         } else {
             toast.error("error when save bulk schedule doctor");
         }
-        console.log("test ", res);
     };
     render() {
-        // console.log("xem state", this.state);
         let { rangeTime } = this.state;
         let { language } = this.props;
         let yesterday = new Date(new Date().setDate(new Date().getDate() - 1));
