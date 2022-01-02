@@ -1,0 +1,26 @@
+.profile-doctor-container {
+    .intro-doctor {
+        display: flex;
+        padding: 10px 0;
+        // height: 100px; Bỏ chiều cao thằng cha thì chiều cao thằng con bằng chính xác chiều cao thằng cha
+        .content-left {
+            // width: 20%; đã 80px width r thì % ko có giá trị
+            background: center center no-repeat;
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+        }
+        .content-right {
+            width: calc(100% - 80px); //chỉnh thủ công, nhớ viết dấu - cách ra
+            display: flex;
+            flex-direction: column;
+            padding-left: 10px;
+            .up {
+                font-weight: 600;
+            }
+            .down {
+                text-align: justify; //căn đều trái phải
+            }
+        }
+    }
+}

@@ -57,12 +57,12 @@ class DoctorSchedule extends Component {
                         .locale("en")
                         .format("ddd-DD/MM"); //do import localization nên mặc định nó ko phải tiếng anh nữa=>thêm locale("en")
                 }
-                object.value = moment(new Date())
-                    .add(i, "days")
-                    .startOf("day")
-                    .valueOf();
             } //muốn kiểu timeStamp số tròn ko giờ không phút thì phải dùng hàm startOf(vì backend ko lưu giờ phút)
             //còn valueOf() giúp convert về dạng milisecond unix time
+            object.value = moment(new Date())
+                .add(i, "days")
+                .startOf("day")
+                .valueOf();
             arrDays.push(object);
         }
         return arrDays;
@@ -181,15 +181,15 @@ class DoctorSchedule extends Component {
                                 </div>
                                 <div className="book-free">
                                     <span>
-                                        <FormattedMessage id="patient.detail-doctor." />
+                                        <FormattedMessage id="patient.detail-doctor.choose" />
+                                        <i className="fas fa-hand-point-up"></i>
+                                        <FormattedMessage id="patient.detail-doctor.book-free" />
                                     </span>
                                 </div>
                             </>
                         ) : (
                             <div className="no-schedule">
-                                <FormattedMessage id="patient.detail-doctor.choose" />
-                                <i class="fas fa-hand-point-up"></i>
-                                <FormattedMessage id="patient.detail-doctor.book-free" />
+                                <FormattedMessage id="patient.detail-doctor.no-schedule" />
                             </div>
                         )}
                     </div>

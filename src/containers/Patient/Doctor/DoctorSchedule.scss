@@ -52,13 +52,14 @@
             .btn-en {
                 min-width: 170px; //Vd time 8:00 vs 14:00 thì 2 cái button này kích thước khác nhau=> set min width
             }
-            .no-schedule {
-                font-style: italic;
-                font-size: 14px;
-            }
-            .book-free {
-                margin-top: 10px;
-            }
+        }
+        .no-schedule {
+            font-style: italic;
+            font-size: 14px;
+            margin-top: 10px;
+        }
+        .book-free {
+            margin-top: 10px;
         }
     }
 }
