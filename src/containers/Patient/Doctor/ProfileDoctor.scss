@@ -5,7 +5,11 @@
         // height: 100px; Bỏ chiều cao thằng cha thì chiều cao thằng con bằng chính xác chiều cao thằng cha
         .content-left {
             // width: 20%; đã 80px width r thì % ko có giá trị
-            background: center center no-repeat;
+            //Bộ 3 combo background giúp fit content
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center;
+            //
             width: 80px;
             height: 80px;
             border-radius: 50%;
