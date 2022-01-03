@@ -117,6 +117,7 @@ class ManageDoctor extends Component {
                 listProvince: dataSelectProvince,
             });
         }
+        //thay doi ngon ngu la thay doi tat
         if (prevProps.language !== this.props.language) {
             let dataSelect = this.buildDataInputSelect(
                 this.props.allDoctors,
