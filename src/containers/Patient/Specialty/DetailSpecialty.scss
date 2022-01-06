@@ -1,0 +1,42 @@
+.detail-specialty-container {
+    .description-specialty {
+        border: 1px solid red;
+        height: 200px;
+    }
+    .detail-specialty-body {
+        margin: 0 100px;
+    }
+
+    .each-doctor {
+        display: flex;
+        width: 100%;
+        min-height: 300px;
+        margin: 15px 0;
+        background-color: #fff;
+        padding: 10px;
+        // box-shadow: 0 1px 6px rgb(32 33 36 / 28%); //Đôi khi lỗi cái này ko dùng đc => chuyển hết thành hexa
+        box-shadow: 0 1px 6px #20212447; //đổ bóng
+        border-radius: 8px;
+        .dt-content-left {
+            width: 50%;
+            border-right: 1px solid #ddd;
+        }
+        .dt-content-right {
+            width: 50%;
+            padding: 10px;
+            .doctor-schedule {
+                .manage-schedule-container {
+                    border-right: unset !important; //cách gỡ bỏ border bằng ghi đè
+                }
+            }
+            .doctor-extra-infor {
+                border-top: 1px solid #ddd;
+                margin-top: 10px;
+                padding-top: 10px;
+                .doctor-extra-infor-container {
+                    padding-left: 0 !important; // kế thừ component mà muốn css lại thì cứ important mà dã;
+                }
+            }
+        }
+    }
+}
