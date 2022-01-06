@@ -32,12 +32,19 @@ class ManageDoctor extends Component {
             listPrice: [],
             listPayment: [],
             listProvince: [],
+            listClinic: [],
+            listSpecialty: [],
             selectedPrice: "",
             selectedPayment: "",
             selectedProvince: "",
+            selectedClinic: "",
+            selectedSpecialty: "",
+
             nameClinic: "",
             addressClinic: "",
             note: "",
+            clinicId: "",
+            specialtyId: "",
         };
     }
     componentDidMount() {
@@ -49,6 +56,7 @@ class ManageDoctor extends Component {
         let result = [];
         let language = this.props.language;
         if (inputData && inputData.length > 0) {
+            //biến user có firstName vs lastName vs tiếng anh tiếng việt đổi trật tự
             if (type === "USERS") {
                 inputData.map((item, index) => {
                     let object = {};
@@ -60,17 +68,19 @@ class ManageDoctor extends Component {
                     result.push(object);
                 });
             }
+            //object price có hậu tố VND hoặc $
             if (type === "PRICE") {
                 inputData.map((item, index) => {
                     let object = {};
                     let labelVi = `${item.valueVi}`;
-                    let labelEn = `${item.valueEn} USD`;
+                    let labelEn = `${item.valueEn} $`;
                     object.label =
                         language === LANGUAGES.VI ? labelVi : labelEn;
                     object.value = item.keyMap;
                     result.push(object);
                 });
             }
+            //object có tiếng anh tiếng việt
             if (type === "PAYMENT" || type === "PROVINCE") {
                 inputData.map((item, index) => {
                     let object = {};
@@ -79,6 +89,14 @@ class ManageDoctor extends Component {
                     object.label =
                         language === LANGUAGES.VI ? labelVi : labelEn;
                     object.value = item.keyMap;
+                    result.push(object);
+                });
+            }
+            if (type === "SPECIALTY") {
+                inputData.map((item, index) => {
+                    let object = {};
+                    object.label = item.name;
+                    object.value = item.id;
                     result.push(object);
                 });
             }
@@ -99,7 +117,7 @@ class ManageDoctor extends Component {
             prevProps.allRequiredDoctorInfor !==
             this.props.allRequiredDoctorInfor
         ) {
-            let { resPrice, resPayment, resProvince } =
+            let { resPrice, resPayment, resProvince, resSpecialty } =
                 this.props.allRequiredDoctorInfor;
             let dataSelectPrice = this.buildDataInputSelect(resPrice, "PRICE");
             let dataSelectPayment = this.buildDataInputSelect(
@@ -110,11 +128,16 @@ class ManageDoctor extends Component {
                 resProvince,
                 "PROVINCE"
             );
+            let dataSelectSpecialty = this.buildDataInputSelect(
+                resSpecialty,
+                "SPECIALTY"
+            );
 
             this.setState({
                 listPrice: dataSelectPrice,
                 listPayment: dataSelectPayment,
                 listProvince: dataSelectProvince,
+                listSpecialty: dataSelectSpecialty,
             });
         }
         //thay doi ngon ngu la thay doi tat
@@ -134,11 +157,16 @@ class ManageDoctor extends Component {
                 resProvince,
                 "PROVINCE"
             );
+            let dataSelectSpecialty = this.buildDataInputSelect(
+                resProvince,
+                "SPECIALTY"
+            );
             this.setState({
                 listDoctors: dataSelect,
                 listPrice: dataSelectPrice,
                 listPayment: dataSelectPayment,
                 listProvince: dataSelectProvince,
+                listSpecialty: dataSelectSpecialty,
             });
         }
     }
@@ -165,6 +193,11 @@ class ManageDoctor extends Component {
             nameClinic: this.state.nameClinic,
             addressClinic: this.state.addressClinic,
             note: this.state.note,
+            clinicId:
+                this.state.selectedClinic && this.state.selectedClinic.value
+                    ? this.state.selectedClinic.value
+                    : null,
+            specialtyId: this.state.selectedSpecialty.value,
         });
     };
     handleChangeSelect = async (selectedDoctor) => {
@@ -362,15 +395,46 @@ class ManageDoctor extends Component {
                         />
                     </div>
                 </div>
+                <div className="row">
+                    <div className="col-4 form-group">
+                        <label>
+                            <FormattedMessage id="admin.manage-doctor.specialty" />
+                        </label>
+                        <Select
+                            value={this.state.selectedSpecialty}
+                            onChange={this.handleChangeSelectDoctorInfor} //dùng như callback
+                            options={this.state.listSpecialty}
+                            placeholder={
+                                <FormattedMessage id="admin.manage-doctor.specialty" />
+                            }
+                            name="selectedSpecialty" //tương tự như mk truyền 1 cái id vào function onChange(biến name do thư viện quy định)
+                        />
+                    </div>
+                    <div className="col-4 form-group">
+                        <label>
+                            <FormattedMessage id="admin.manage-doctor.clinic" />
+                        </label>
+                        <Select
+                            value={this.state.selectedClinic}
+                            onChange={this.handleChangeSelectDoctorInfor} //dùng như callback
+                            options={this.state.listClinic}
+                            placeholder={
+                                <FormattedMessage id="admin.manage-doctor.clinic" />
+                            }
+                            name="selectedClinic" //tương tự như mk truyền 1 cái id vào function onChange(biến name do thư viện quy định)
+                        />
+                    </div>
+                </div>
                 <div className="manage-doctor-editor">
                     {/* Cả cái MdEditor này copy trên document MdEditor */}
                     <MdEditor
-                        style={{ height: "500px" }}
+                        style={{ height: "300px" }}
                         renderHTML={(text) => mdParser.render(text)}
                         onChange={this.handleEditorChange} //cái này là truyền props xuống không dùng ()=>this.handleEditiorChange
                         value={this.state.contentMarkdown} //lên trên mạng gõ react-markdown-editor-lite set default value
                     />
                 </div>
+
                 <button
                     className={
                         hasOldData === true

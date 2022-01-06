@@ -58,7 +58,7 @@
                 background-size: cover;
                 background-color: #eee;
                 &.section-specialty {
-                    background-image: url("../../assets/specialty/co-xuong-khop.jpg");
+                    // background-image: url("../../assets/specialty/co-xuong-khop.jpg");
                     //nhớ là phải background-image, nếu ghi background: url() thì nó sẽ ghi đè tất cả các cái trên
                 }
                 &.section-medical-facility {
