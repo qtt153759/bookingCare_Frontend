@@ -39,7 +39,6 @@ class DefaultClass extends Component {
             });
         }
         if (this.props.genders !== prevProps.genders) {
-            console.log(this.props.genders);
             this.setState({
                 genders: this.buildDataInputSelect(this.props.genders),
             });
@@ -146,7 +145,6 @@ class DefaultClass extends Component {
         let { isOpenModal, closeBookingClose, dataTime } = this.props;
         let doctorId =
             dataTime && !_.isEmpty(dataTime) ? dataTime.doctorId : ""; //cách viết điều kiện chuyên nghiệp
-        console.log("this", this.state);
         return (
             <Modal
                 isOpen={isOpenModal}

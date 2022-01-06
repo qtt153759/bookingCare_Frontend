@@ -27,7 +27,6 @@ class Specialty extends Component {
     render() {
         //bản chất customize cái setting này là đang truyền props cho Slider
         let { dataSpecialty } = this.state;
-        console.log(dataSpecialty);
         return (
             <div className="section-share section-specialty">
                 <div className="section-contaiter">

@@ -106,7 +106,6 @@ class DoctorSchedule extends Component {
             isOpenModalBooking: true,
             dataSchduleTimeModal: time,
         });
-        console.log("Hoi dan it channel:time", time);
     };
     closeBookingClose = () => {
         this.setState({
@@ -121,7 +120,6 @@ class DoctorSchedule extends Component {
             dataSchduleTimeModal,
         } = this.state;
         let { language } = this.props;
-        console.log(this.state);
         return (
             <>
                 <div className="manage-schedule-container">
