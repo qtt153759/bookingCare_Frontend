@@ -29,6 +29,15 @@ class DoctorSchedule extends Component {
                 allDays: allDays,
             });
         }
+        if (this.props.doctorIdFromParent) {
+            let res = await getScheduleDoctorByDate(
+                this.props.doctorIdFromParent,
+                allDays[0].value
+            );
+            this.setState({
+                allAvailableTime: res.data ? res.data : [],
+            });
+        }
     }
     //Hàm viết hoa chữ cái đầu
     capitalizeFirstLetter(string) {

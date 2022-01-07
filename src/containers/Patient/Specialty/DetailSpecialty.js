@@ -39,7 +39,53 @@ class DetailSpecialty extends Component {
                 resProvince &&
                 resProvince.errCode === 0
             ) {
-                console.log("check", res);
+                let data = res.data;
+                let arrDoctorId = [];
+                if (data && !_.isEmpty(res.data)) {
+                    let arr = data.doctorSpecialty;
+                    if (arr && arr.length > 0) {
+                        arr.map((item) => {
+                            arrDoctorId.push(item.doctorId);
+                        });
+                    }
+                }
+                let dataProvince = resProvince.data;
+                //tạo toàn quốc bằng cách đẩy nó vào mảng dataProvince
+                if (dataProvince && dataProvince.length > 0) {
+                    dataProvince.unshift({
+                        //dùng push thì bị đẩy xuống cuối, unshift thì cho lên đầu
+                        keyMap: "ALL",
+                        type: "PROVINCE",
+                        valueEn: "ALL",
+                        valueVi: "Toàn quốc",
+                    });
+                }
+                this.setState({
+                    dataDetailSpecialty: res.data,
+                    arrDoctorId: arrDoctorId,
+                    listProvince: dataProvince ? dataProvince : [],
+                });
+            }
+        }
+    }
+    async componentDidUpdate(prevProps, prevState, snapshot) {
+        if (this.props.language !== prevProps.language) {
+        }
+    }
+
+    handleOnchageSelect = async (event) => {
+        if (
+            this.props.match &&
+            this.props.match.params &&
+            this.props.match.params.id
+        ) {
+            let id = this.props.match.params.id;
+            let location = event.target.value;
+            let res = await getAllDetailSpecialtyById({
+                id: id,
+                location: location,
+            });
+            if (res && res.errCode === 0) {
                 let data = res.data;
                 let arrDoctorId = [];
                 if (data && !_.isEmpty(res.data)) {
@@ -53,17 +99,9 @@ class DetailSpecialty extends Component {
                 this.setState({
                     dataDetailSpecialty: res.data,
                     arrDoctorId: arrDoctorId,
-                    listProvince: resProvince.data,
                 });
             }
         }
-    }
-    async componentDidUpdate(prevProps, prevState, snapshot) {
-        if (this.props.language !== prevProps.language) {
-        }
-    }
-    handleOnchageSelect = (event) => {
-        console.log("change specialty", event);
     };
     render() {
         let { arrDoctorId, dataDetailSpecialty, listProvince } = this.state;
@@ -114,6 +152,8 @@ class DetailSpecialty extends Component {
                                                     isShowDescriptionDoctor={
                                                         true
                                                     }
+                                                    isShowLinkDetail={true}
+                                                    isShowPrice={false}
                                                 />
                                             </div>
                                         </div>
