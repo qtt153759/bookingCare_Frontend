@@ -36,7 +36,8 @@
             "manage-handbook": "Quản lý cẩm nang"
         },
         "doctor": {
-            "manage-schedule": "Quản lý kế hoạch khám bệnh"
+            "manage-schedule": "Quản lý kế hoạch khám bệnh",
+            "manage-patient": "Quản lý bệnh nhân khám bệnh"
         }
     },
     "manage-user": {
@@ -57,7 +58,8 @@
     "homepage": {
         "out-standing-doctor": "Bác sĩ nổi bật",
         "more-infor": "Xem thêm",
-        "specialty-popular": "Chuyên khoa phổ biến"
+        "specialty-popular": "Chuyên khoa phổ biến",
+        "outStanding-medical-facility": "Bệnh viện nổi tiếng"
     },
     "manage-schedule": {
         "title": "Quản lý lịch khám bệnh bác sĩ",

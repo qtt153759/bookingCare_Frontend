@@ -30,7 +30,7 @@ class MedicalFacility extends Component {
                 <div className="section-contaiter">
                     <div className="section-header">
                         <span className="title-section">
-                            <FormattedMessage id="homepage.specialty-popular" />
+                            <FormattedMessage id="homepage.outStanding-medical-facility" />
                         </span>
                         <button className="btn-section">
                             <FormattedMessage id="homepage.more-infor" />
