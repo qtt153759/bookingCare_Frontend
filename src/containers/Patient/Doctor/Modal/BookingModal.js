@@ -117,7 +117,7 @@ class DefaultClass extends Component {
         return "";
     };
     handleConfirmBooking = async () => {
-        let date = new Date(this.state.birthday).getTime();
+        let birthday = new Date(this.state.birthday).getTime();
         let timeString = this.buildTimeBooking(this.props.dataTime);
         let doctorName = this.buildDoctorName(this.props.dataTime);
         let res = await postPatientBookAppointment({
@@ -129,7 +129,8 @@ class DefaultClass extends Component {
             selectedGender: this.state.selectedGender.value,
             doctorId: this.state.doctorId,
             timeType: this.state.timeType,
-            date: date,
+            date: this.props.dataTime.date,
+            birthday: birthday,
             language: this.props.language,
             timeString: timeString,
             doctorName: doctorName,
