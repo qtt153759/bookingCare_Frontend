@@ -12,7 +12,7 @@ import { postPatientBookAppointment } from "../../../../services/userService";
 import Select from "react-select";
 import moment from "moment";
 import { toast } from "react-toastify";
-class DefaultClass extends Component {
+class BookingModal extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -308,4 +308,4 @@ const mapDispatchToProps = (dispatch) => {
     };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(DefaultClass);
+export default connect(mapStateToProps, mapDispatchToProps)(BookingModal);

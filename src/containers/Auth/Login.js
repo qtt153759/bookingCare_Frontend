@@ -26,14 +26,12 @@ class Login extends Component {
             //set lai state
             username: event.target.value,
         });
-        console.log(event.target.value);
     };
     handelOnChangePassword = (event) => {
         this.setState({
             //set lai state
             password: event.target.value,
         });
-        console.log(event.target.value);
     };
     handleLogin = async () => {
         this.setState({
@@ -53,7 +51,6 @@ class Login extends Component {
             }
             if (data && data.errCode === 0) {
                 this.props.userLoginSuccess(data.user);
-                console.log("login succeeds");
             }
         } catch (err) {
             if (err.response) {
@@ -64,7 +61,6 @@ class Login extends Component {
                     });
                 }
             }
-            console.log("hoidanit", err.response);
         }
     };
     handleShowHidePassword = () => {

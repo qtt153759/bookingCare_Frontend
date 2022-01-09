@@ -165,7 +165,6 @@ class UserManage extends Component {
                             {arrUsers &&
                                 arrUsers.map((item, index) => {
                                     /*phai {} cho ham trong reder*/
-                                    console.log("eric check map", item, index);
                                     return (
                                         /*trong function map phai return ra cai gi day*/
                                         <tr key={index}>
