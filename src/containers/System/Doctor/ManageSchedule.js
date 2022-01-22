@@ -17,7 +17,7 @@ class ManageSchedule extends Component {
             listDoctors: [],
             selectedDoctor: {},
             rangeTime: [],
-            currentDate: "",
+            currentDate: moment(new Date()).startOf("day").valueOf(),
         };
     }
     componentDidMount() {

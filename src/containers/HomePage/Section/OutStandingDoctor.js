@@ -52,7 +52,7 @@ class OutStandDoctor extends Component {
                                     let imageBase64 = "";
                                     if (item.image) {
                                         //cách đọc blob
-                                        imageBase64 = new Buffer(
+                                        imageBase64 = Buffer.from(
                                             item.image,
                                             "base64"
                                         ).toString("binary");
