@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux"; //muốn lấy state của redux thì phải dùng connect
 // import "./About.scss";
 import { FormattedMessage } from "react-intl"; //thư viện dùng để chuyển đổi ngôn ngữ
-
+import picture from "../../../assets/guide.png";
 class About extends Component {
     render() {
         //bản chất customize cái setting này là đang truyền props cho Slider
@@ -27,16 +27,24 @@ class About extends Component {
                         {/* phải viết theo quy chuẩn ko thì sẽ có warning vd: frameBorder thay vì frameborder */}
                     </div>
                     <div className="content-right">
-                        <p>
-                            Nếu như trong bài N4, các bạn đã biết về sản phẩm
-                            đạt được khi kết thúc khóa học fullstack SERN này.
-                            (SQL, Express, React và Node.js). Vậy khi chạy môi
-                            trường production, liệu nó có gì khác ? Điểm khác
-                            biệt ở đây chính là chúng ta sẽ xử lý API, database
-                            với môi trường thực tế, làm thật, triển khai thật.
-                            Và đặc biệt hơn nữa là mình sẽ 'nhúng' luôn chatbot
-                            vào website của chúng ta
-                        </p>
+                        <div>
+                            <p>
+                                This is a series that i follow to learn MERN
+                                (MySQL,Express,ReactJs,NodeJs) and build this
+                                BookingCare project. Access the link below for
+                                administrator rights:
+                            </p>
+                            <a href="https://bookingcare-hoidanit-web.herokuapp.com/system">
+                                https://bookingcare-hoidanit-web.herokuapp.com/system
+                            </a>
+                        </div>
+                        <div>
+                            <img
+                                style={{ width: "-webkit-fill-available" }}
+                                src={picture}
+                                alt="https://bookingcare-hoidanit-web.herokuapp.com/system"
+                            />
+                        </div>
                     </div>
                 </div>
             </div>
